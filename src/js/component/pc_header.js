@@ -30,8 +30,7 @@ class PCHeader extends React.Component {
       userNickName: "",
       userid: 0
     };
-  }
-
+  };
   componentWillMount() {
     if (localStorage.userid != "") {
       this.setState({ hasLogined: true });
@@ -40,11 +39,10 @@ class PCHeader extends React.Component {
         userid: localStorage.userid
       });
     }
-  }
-
+  };
   setModalVisible(value) {
     this.setState({ modalVisible: value });
-  }
+  };
   handleClick(e) {
     if (e.key == "register") {
       this.setState({ current: "register" });
@@ -54,7 +52,7 @@ class PCHeader extends React.Component {
         this.setState({ current: e.key });
       }
     }
-  }
+  };
   getDate(e) {
     var myFetchOptions = {
       method: "GET"
@@ -87,7 +85,7 @@ class PCHeader extends React.Component {
     }
     message.success("请求成功！");
     this.setModalVisible(false);
-  }
+  };
   handleSubmitLogin(e) {
     e.preventDefault();
     this.props.form.validateFields(["userName", "password"], (err, values) => {
@@ -97,7 +95,7 @@ class PCHeader extends React.Component {
         this.getDate(e);
       }
     });
-  }
+  };
   handleSubmitReguster(e) {
     e.preventDefault();
     this.props.form.validateFields(
@@ -111,24 +109,24 @@ class PCHeader extends React.Component {
         }
       }
     );
-  }
+  };
   callback(key) {
     if (key == 1) {
       this.setState({ action: "login" });
     } else if (key == 2) {
       this.setState({ action: "register" });
     }
-  }
+  };
   logout() {
     localStorage.userid = "";
     localStorage.userNickName = "";
     this.setState({ hasLogined: false, userNickName: "", userid: "" });
     window.location.href = "/";
-  }
+  };
   handleConfirmBlur(e) {
     const value = e.target.value;
     this.setState({ confirmDirty: this.state.confirmDirty || !!value });
-  }
+  };
   checkPassword(rule, value, callback) {
     const form = this.props.form;
     if (value && value !== form.getFieldValue("r_password")) {
@@ -138,7 +136,7 @@ class PCHeader extends React.Component {
     } else {
       callback();
     }
-  }
+  };
   checkConfirm(rule, value, callback) {
     const form = this.props.form;
     const re = /^\w{4,18}$/;
@@ -148,16 +146,7 @@ class PCHeader extends React.Component {
       form.validateFields(["r_confirmPassword"], { force: true });
     }
     callback();
-  }
-  changeLocale(e) {
-    const localeValue = e.target.value;
-    this.setState({ locale: localeValue });
-    if (!localeValue) {
-      moment.locale("zh-cn");
-    } else {
-      moment.locale("en");
-    }
-  }
+  };
   render() {
     const { getFieldDecorator } = this.props.form;
     const userShow = this.state.hasLogined ? (
