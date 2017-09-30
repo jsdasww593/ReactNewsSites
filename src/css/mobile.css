@@ -82,7 +82,7 @@ html{
       font-size:14px;
       padding:.2rem 0;
       border-bottom:1px solid #e5e5e5;
-      margin:0 .3rem;
+      margin:0 .1rem;
   }
   .m_article .m_article_img{
       float:left;
@@ -176,6 +176,9 @@ html{
       height:.3rem;
       float:left;
       position:relative;
+   }
+   .tloader-footer .tloader-btn{
+       line-height: 1rem !important;
    }
   .m_article .m_article_hot .m_article_hot_icon:after{content:"";display:block;position:absolute;bottom:-0.05rem;right:-0.04rem;-webkit-transform:rotate(-45deg);-ms-transform:rotate(-45deg);transform:rotate(-45deg);width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:10px solid #4c9aea}
   .m_article .m_article_hot .m_article_hot_content{margin-left:.15rem;float:left}

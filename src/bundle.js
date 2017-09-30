@@ -8212,7 +8212,7 @@ var locationsAreEqual = function locationsAreEqual(a, b) {
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 var _row = __webpack_require__(26);
@@ -8277,414 +8277,441 @@ var SubMenu = _menu2.default.SubMenu;
 var MenuItemGroup = _menu2.default.ItemGroup;
 
 var PCHeader = function (_React$Component) {
-	_inherits(PCHeader, _React$Component);
+  _inherits(PCHeader, _React$Component);
 
-	function PCHeader() {
-		_classCallCheck(this, PCHeader);
+  function PCHeader() {
+    _classCallCheck(this, PCHeader);
 
-		var _this = _possibleConstructorReturn(this, (PCHeader.__proto__ || Object.getPrototypeOf(PCHeader)).call(this));
+    var _this = _possibleConstructorReturn(this, (PCHeader.__proto__ || Object.getPrototypeOf(PCHeader)).call(this));
 
-		_this.state = {
-			confirmDirty: false,
-			current: '',
-			modalVisible: false,
-			action: 'login',
-			hasLogined: false,
-			userNickName: '',
-			userid: 0
-		};
-		return _this;
-	}
+    _this.state = {
+      confirmDirty: false,
+      current: "",
+      modalVisible: false,
+      action: "login",
+      hasLogined: false,
+      userNickName: "",
+      userid: 0
+    };
+    return _this;
+  }
 
-	_createClass(PCHeader, [{
-		key: 'componentWillMount',
-		value: function componentWillMount() {
-			if (localStorage.userid != '') {
-				this.setState({ hasLogined: true });
-				this.setState({ userNickName: localStorage.userNickName, userid: localStorage.userid });
-			};
-		}
-	}, {
-		key: 'setModalVisible',
-		value: function setModalVisible(value) {
-			this.setState({ modalVisible: value });
-		}
-	}, {
-		key: 'handleClick',
-		value: function handleClick(e) {
-			if (e.key == "register") {
-				this.setState({ current: 'register' });
-				this.setModalVisible(true);
-			} else {
-				{
-					this.setState({ current: e.key });
-				}
-			}
-		}
-	}, {
-		key: 'getDate',
-		value: function getDate(e) {
-			var _this2 = this;
+  _createClass(PCHeader, [{
+    key: "componentWillMount",
+    value: function componentWillMount() {
+      if (localStorage.userid != "") {
+        this.setState({ hasLogined: true });
+        this.setState({
+          userNickName: localStorage.userNickName,
+          userid: localStorage.userid
+        });
+      }
+    }
+  }, {
+    key: "setModalVisible",
+    value: function setModalVisible(value) {
+      this.setState({ modalVisible: value });
+    }
+  }, {
+    key: "handleClick",
+    value: function handleClick(e) {
+      if (e.key == "register") {
+        this.setState({ current: "register" });
+        this.setModalVisible(true);
+      } else {
+        {
+          this.setState({ current: e.key });
+        }
+      }
+    }
+  }, {
+    key: "getDate",
+    value: function getDate(e) {
+      var _this2 = this;
 
-			var myFetchOptions = {
-				method: 'GET'
-			};
-			var formData = this.props.form.getFieldsValue();
-			fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=" + this.state.action + "&username=" + formData.userName + "&password=" + formData.password + "&r_userName=" + formData.r_userName + "&r_password=" + formData.r_password + "&r_confirmPassword=" + formData.r_confirmPassword, myFetchOptions).then(function (response) {
-				return response.json();
-			}).then(function (json) {
-				_this2.setState({ userNickName: json.NickUserName, userid: json.UserId });
-				localStorage.userid = json.UserId;
-				localStorage.userNickName = json.NickUserName;
-			});
-			if (this.state.action == "login") {
-				this.setState({ hasLogined: true });
-				console.log(this.state.hasLogined);
-			}
-			_message2.default.success("请求成功！");
-			this.setModalVisible(false);
-		}
-	}, {
-		key: 'handleSubmitLogin',
-		value: function handleSubmitLogin(e) {
-			var _this3 = this;
+      var myFetchOptions = {
+        method: "GET"
+      };
+      var formData = this.props.form.getFieldsValue();
+      fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=" + this.state.action + "&username=" + formData.userName + "&password=" + formData.password + "&r_userName=" + formData.r_userName + "&r_password=" + formData.r_password + "&r_confirmPassword=" + formData.r_confirmPassword, myFetchOptions).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        _this2.setState({ userNickName: json.NickUserName, userid: json.UserId });
+        localStorage.userid = json.UserId;
+        localStorage.userNickName = json.NickUserName;
+      });
+      if (this.state.action == "login") {
+        this.setState({ hasLogined: true });
+        console.log(this.state.hasLogined);
+      }
+      _message2.default.success("请求成功！");
+      this.setModalVisible(false);
+    }
+  }, {
+    key: "handleSubmitLogin",
+    value: function handleSubmitLogin(e) {
+      var _this3 = this;
 
-			e.preventDefault();
-			this.props.form.validateFields(["userName", "password"], function (err, values) {
-				if (err) {
-					_message2.default.error("登录失败");
-				} else {
-					_this3.getDate(e);
-				}
-			});
-		}
-	}, {
-		key: 'handleSubmitReguster',
-		value: function handleSubmitReguster(e) {
-			var _this4 = this;
+      e.preventDefault();
+      this.props.form.validateFields(["userName", "password"], function (err, values) {
+        if (err) {
+          _message2.default.error("登录失败");
+        } else {
+          _this3.getDate(e);
+        }
+      });
+    }
+  }, {
+    key: "handleSubmitReguster",
+    value: function handleSubmitReguster(e) {
+      var _this4 = this;
 
-			e.preventDefault();
-			this.props.form.validateFields(["r_userName", "r_password", "r_confirmPassword"], function (err, values) {
-				console.log(err);
-				if (err) {
-					_message2.default.error("注册失败");
-				} else {
-					_this4.getDate(e);
-				}
-			});
-		}
-	}, {
-		key: 'callback',
-		value: function callback(key) {
-			if (key == 1) {
-				this.setState({ action: 'login' });
-			} else if (key == 2) {
-				this.setState({ action: 'register' });
-			}
-		}
-	}, {
-		key: 'logout',
-		value: function logout() {
-			localStorage.userid = '';
-			localStorage.userNickName = '';
-			this.setState({ hasLogined: false, userNickName: '', userid: '' });
-			window.location.href = '/';
-		}
-	}, {
-		key: 'handleConfirmBlur',
-		value: function handleConfirmBlur(e) {
-			var value = e.target.value;
-			this.setState({ confirmDirty: this.state.confirmDirty || !!value });
-		}
-	}, {
-		key: 'checkPassword',
-		value: function checkPassword(rule, value, callback) {
-			var form = this.props.form;
-			if (value && value !== form.getFieldValue('r_password')) {
-				callback('两次输入不一致');
-			} else if (!value) {
-				callback('请填写值');
-			} else {
-				callback();
-			}
-		}
-	}, {
-		key: 'checkConfirm',
-		value: function checkConfirm(rule, value, callback) {
-			var form = this.props.form;
-			var re = /^\w{4,18}$/;
-			if (!value || !re.test(value)) {
-				callback('密码格式错误');
-			} else if (value && this.state.confirmDirty) {
-				form.validateFields(['r_confirmPassword'], { force: true });
-			}
-			callback();
-		}
-	}, {
-		key: 'changeLocale',
-		value: function changeLocale(e) {
-			var localeValue = e.target.value;
-			this.setState({ locale: localeValue });
-			if (!localeValue) {
-				moment.locale('zh-cn');
-			} else {
-				moment.locale('en');
-			}
-		}
-	}, {
-		key: 'render',
-		value: function render() {
-			var _this5 = this;
+      e.preventDefault();
+      this.props.form.validateFields(["r_userName", "r_password", "r_confirmPassword"], function (err, values) {
+        console.log(err);
+        if (err) {
+          _message2.default.error("注册失败");
+        } else {
+          _this4.getDate(e);
+        }
+      });
+    }
+  }, {
+    key: "callback",
+    value: function callback(key) {
+      if (key == 1) {
+        this.setState({ action: "login" });
+      } else if (key == 2) {
+        this.setState({ action: "register" });
+      }
+    }
+  }, {
+    key: "logout",
+    value: function logout() {
+      localStorage.userid = "";
+      localStorage.userNickName = "";
+      this.setState({ hasLogined: false, userNickName: "", userid: "" });
+      window.location.href = "/";
+    }
+  }, {
+    key: "handleConfirmBlur",
+    value: function handleConfirmBlur(e) {
+      var value = e.target.value;
+      this.setState({ confirmDirty: this.state.confirmDirty || !!value });
+    }
+  }, {
+    key: "checkPassword",
+    value: function checkPassword(rule, value, callback) {
+      var form = this.props.form;
+      if (value && value !== form.getFieldValue("r_password")) {
+        callback("两次输入不一致");
+      } else if (!value) {
+        callback("请填写值");
+      } else {
+        callback();
+      }
+    }
+  }, {
+    key: "checkConfirm",
+    value: function checkConfirm(rule, value, callback) {
+      var form = this.props.form;
+      var re = /^\w{4,18}$/;
+      if (!value || !re.test(value)) {
+        callback("密码格式错误");
+      } else if (value && this.state.confirmDirty) {
+        form.validateFields(["r_confirmPassword"], { force: true });
+      }
+      callback();
+    }
+  }, {
+    key: "changeLocale",
+    value: function changeLocale(e) {
+      var localeValue = e.target.value;
+      this.setState({ locale: localeValue });
+      if (!localeValue) {
+        moment.locale("zh-cn");
+      } else {
+        moment.locale("en");
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this5 = this;
 
-			var getFieldDecorator = this.props.form.getFieldDecorator;
+      var getFieldDecorator = this.props.form.getFieldDecorator;
 
-			var userShow = this.state.hasLogined ? _react2.default.createElement(
-				_menu2.default.Item,
-				{ key: 'logout', className: 'register' },
-				_react2.default.createElement(
-					_button2.default,
-					{ type: 'primary', htmlType: 'button' },
-					this.state.userNickName
-				),
-				'\xA0\xA0',
-				_react2.default.createElement(
-					_reactRouterDom.Link,
-					{ target: '_blank', to: '/usercenter' },
-					_react2.default.createElement(
-						_button2.default,
-						{ type: 'dashed', htmlType: 'button' },
-						'\u4E2A\u4EBA\u4E2D\u5FC3'
-					)
-				),
-				'\xA0\xA0',
-				_react2.default.createElement(
-					_button2.default,
-					{ type: 'ghost', htmlType: 'button', onClick: this.logout.bind(this) },
-					'\u9000\u51FA'
-				)
-			) : _react2.default.createElement(
-				_menu2.default.Item,
-				{ key: 'register', className: 'register' },
-				_react2.default.createElement(_icon2.default, { type: 'user' }),
-				'\u6CE8\u518C/\u767B\u5F55'
-			);
-			return _react2.default.createElement(
-				'header',
-				null,
-				_react2.default.createElement(
-					_row2.default,
-					null,
-					_react2.default.createElement(_col2.default, { span: 2 }),
-					_react2.default.createElement(
-						_col2.default,
-						{ span: 4 },
-						_react2.default.createElement(
-							'a',
-							{ href: '/', className: 'logo' },
-							_react2.default.createElement('img', { src: '/src/images/news_logo.png' }),
-							_react2.default.createElement(
-								'span',
-								null,
-								'ReactNews'
-							)
-						)
-					),
-					_react2.default.createElement(
-						_col2.default,
-						{ span: 16 },
-						_react2.default.createElement(
-							_menu2.default,
-							{ mode: 'horizontal', onClick: this.handleClick.bind(this), selectedKeys: [this.props.currentTitle] },
-							_react2.default.createElement(
-								_menu2.default.Item,
-								{ key: 'top' },
-								_react2.default.createElement(
-									_reactRouterDom.Link,
-									{ to: '/newslist/top', target: '_blank' },
-									_react2.default.createElement(_icon2.default, { type: 'appstore' }),
-									'\u5934\u6761'
-								)
-							),
-							_react2.default.createElement(
-								_menu2.default.Item,
-								{ key: 'shehui' },
-								_react2.default.createElement(
-									_reactRouterDom.Link,
-									{ to: '/newslist/shehui', target: '_blank' },
-									_react2.default.createElement(_icon2.default, { type: 'appstore' }),
-									'\u793E\u4F1A'
-								)
-							),
-							_react2.default.createElement(
-								_menu2.default.Item,
-								{ key: 'guonei' },
-								_react2.default.createElement(
-									_reactRouterDom.Link,
-									{ to: '/newslist/guonei', target: '_blank' },
-									_react2.default.createElement(_icon2.default, { type: 'appstore' }),
-									'\u56FD\u5185'
-								)
-							),
-							_react2.default.createElement(
-								_menu2.default.Item,
-								{ key: 'guoji' },
-								_react2.default.createElement(
-									_reactRouterDom.Link,
-									{ to: '/newslist/guoji', target: '_blank' },
-									_react2.default.createElement(_icon2.default, { type: 'appstore' }),
-									'\u56FD\u9645'
-								)
-							),
-							_react2.default.createElement(
-								_menu2.default.Item,
-								{ key: 'yule' },
-								_react2.default.createElement(
-									_reactRouterDom.Link,
-									{ to: '/newslist/yule', target: '_blank' },
-									_react2.default.createElement(_icon2.default, { type: 'appstore' }),
-									'\u5A31\u4E50'
-								)
-							),
-							_react2.default.createElement(
-								_menu2.default.Item,
-								{ key: 'tiyu' },
-								_react2.default.createElement(
-									_reactRouterDom.Link,
-									{ to: '/newslist/tiyu', target: '_blank' },
-									_react2.default.createElement(_icon2.default, { type: 'appstore' }),
-									'\u4F53\u80B2'
-								)
-							),
-							_react2.default.createElement(
-								_menu2.default.Item,
-								{ key: 'keji' },
-								_react2.default.createElement(
-									_reactRouterDom.Link,
-									{ to: '/newslist/keji', target: '_blank' },
-									_react2.default.createElement(_icon2.default, { type: 'appstore' }),
-									'\u79D1\u6280'
-								)
-							),
-							_react2.default.createElement(
-								_menu2.default.Item,
-								{ key: 'shishang' },
-								_react2.default.createElement(
-									_reactRouterDom.Link,
-									{ to: '/newslist/shishang', target: '_blank' },
-									_react2.default.createElement(_icon2.default, { type: 'appstore' }),
-									'\u65F6\u5C1A'
-								)
-							),
-							userShow
-						),
-						_react2.default.createElement(
-							_modal2.default,
-							{ title: '\u7528\u6237\u4E2D\u5FC3', wrapClassName: 'vertical-center-modal', visible: this.state.modalVisible, onCancel: function onCancel() {
-									return _this5.setModalVisible(false);
-								}, onOk: function onOk() {
-									return _this5.setModalVisible(false);
-								}, okText: '\u5173\u95ED' },
-							_react2.default.createElement(
-								_tabs2.default,
-								{ type: 'line', onChange: this.callback.bind(this) },
-								_react2.default.createElement(
-									TabPane,
-									{ tab: '\u767B\u5F55', key: '1' },
-									_react2.default.createElement(
-										_form2.default,
-										{ layout: 'horizontal', onSubmit: this.handleSubmitLogin.bind(this) },
-										_react2.default.createElement(
-											FormItem,
-											{ label: '\u8D26\u6237' },
-											getFieldDecorator('userName', {
-												rules: [{
-													required: true,
-													message: '请输入2-16位的合法用户名',
-													pattern: /^[a-zA-Z0-9_-]{2,16}$/
-												}]
-											})(_react2.default.createElement(_input2.default, {
-												prefix: _react2.default.createElement(_icon2.default, { type: 'user', style: { fontSize: 14 } }),
-												placeholder: '\u8BF7\u8F93\u5165\u60A8\u7684\u7528\u6237\u540D'
-											}))
-										),
-										_react2.default.createElement(
-											FormItem,
-											{ label: '\u5BC6\u7801' },
-											getFieldDecorator('password', {
-												rules: [{
-													required: true,
-													message: '请输入4-18位的合法密码',
-													pattern: /^\w{4,18}$/
-												}]
-											})(_react2.default.createElement(_input2.default, {
-												type: 'password',
-												prefix: _react2.default.createElement(_icon2.default, { type: 'lock', style: { fontSize: 14 } }),
-												placeholder: '\u8BF7\u8F93\u5165\u60A8\u7684\u5BC6\u7801'
-											}))
-										),
-										_react2.default.createElement(
-											_button2.default,
-											{ type: 'primary', htmlType: 'submit' },
-											'\u767B\u5F55'
-										)
-									)
-								),
-								_react2.default.createElement(
-									TabPane,
-									{ tab: '\u6CE8\u518C', key: '2' },
-									_react2.default.createElement(
-										_form2.default,
-										{ layout: 'horizontal', onSubmit: this.handleSubmitReguster.bind(this) },
-										_react2.default.createElement(
-											FormItem,
-											{ label: '\u8D26\u6237' },
-											getFieldDecorator('r_userName', {
-												rules: [{
-													required: true,
-													message: '用户名输入不合法',
-													pattern: /^[a-zA-Z0-9_-]{2,16}$/
-												}]
-											})(_react2.default.createElement(_input2.default, { placeholder: '\u8BF7\u8F93\u51652-16\u4F4D\u7528\u6237\u540D' }))
-										),
-										_react2.default.createElement(
-											FormItem,
-											{ label: '\u5BC6\u7801' },
-											getFieldDecorator('r_password', {
-												rules: [{
-													required: true,
-													message: '密码格式不合法',
-													validator: this.checkConfirm.bind(this)
-												}]
-											})(_react2.default.createElement(_input2.default, { type: 'password', placeholder: '\u8BF7\u8F93\u51654-18\u4F4D\u7684\u7531\u6570\u5B57\u6216\u82F1\u6587\u7EC4\u6210\u7684\u5BC6\u7801' }))
-										),
-										_react2.default.createElement(
-											FormItem,
-											{ label: '\u786E\u8BA4\u5BC6\u7801' },
-											getFieldDecorator('r_confirmPassword', {
-												rules: [{
-													required: true,
-													message: '两次密码输入不一致',
-													validator: this.checkPassword.bind(this)
-												}]
-											})(_react2.default.createElement(_input2.default, { type: 'password', placeholder: '\u8BF7\u518D\u6B21\u8F93\u5165\u60A8\u7684\u5BC6\u7801', onBlur: this.handleConfirmBlur.bind(this) }))
-										),
-										_react2.default.createElement(
-											_button2.default,
-											{ type: 'primary', htmlType: 'submit' },
-											'\u6CE8\u518C'
-										)
-									)
-								)
-							)
-						)
-					),
-					_react2.default.createElement(_col2.default, { span: 2 })
-				)
-			);
-		}
-	}]);
+      var userShow = this.state.hasLogined ? _react2.default.createElement(
+        _menu2.default.Item,
+        { key: "logout", className: "register" },
+        _react2.default.createElement(
+          _button2.default,
+          { type: "primary", htmlType: "button" },
+          this.state.userNickName
+        ),
+        "\xA0\xA0",
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { target: "_blank", to: "/usercenter" },
+          _react2.default.createElement(
+            _button2.default,
+            { type: "dashed", htmlType: "button" },
+            "\u4E2A\u4EBA\u4E2D\u5FC3"
+          )
+        ),
+        "\xA0\xA0",
+        _react2.default.createElement(
+          _button2.default,
+          { type: "ghost", htmlType: "button", onClick: this.logout.bind(this) },
+          "\u9000\u51FA"
+        )
+      ) : _react2.default.createElement(
+        _menu2.default.Item,
+        { key: "register", className: "register" },
+        _react2.default.createElement(_icon2.default, { type: "user" }),
+        "\u6CE8\u518C/\u767B\u5F55"
+      );
+      return _react2.default.createElement(
+        "header",
+        null,
+        _react2.default.createElement(
+          _row2.default,
+          null,
+          _react2.default.createElement(_col2.default, { span: 2 }),
+          _react2.default.createElement(
+            _col2.default,
+            { span: 4 },
+            _react2.default.createElement(
+              "a",
+              { href: "/", className: "logo" },
+              _react2.default.createElement("img", { src: "/src/images/news_logo.png" }),
+              _react2.default.createElement(
+                "span",
+                null,
+                "ReactNews"
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _col2.default,
+            { span: 16 },
+            _react2.default.createElement(
+              _menu2.default,
+              {
+                mode: "horizontal",
+                onClick: this.handleClick.bind(this),
+                selectedKeys: [this.props.currentTitle]
+              },
+              _react2.default.createElement(
+                _menu2.default.Item,
+                { key: "top" },
+                _react2.default.createElement(
+                  _reactRouterDom.Link,
+                  { to: "/newslist/top", target: "_blank" },
+                  _react2.default.createElement(_icon2.default, { type: "appstore" }),
+                  "\u5934\u6761"
+                )
+              ),
+              _react2.default.createElement(
+                _menu2.default.Item,
+                { key: "shehui" },
+                _react2.default.createElement(
+                  _reactRouterDom.Link,
+                  { to: "/newslist/shehui", target: "_blank" },
+                  _react2.default.createElement(_icon2.default, { type: "appstore" }),
+                  "\u793E\u4F1A"
+                )
+              ),
+              _react2.default.createElement(
+                _menu2.default.Item,
+                { key: "guonei" },
+                _react2.default.createElement(
+                  _reactRouterDom.Link,
+                  { to: "/newslist/guonei", target: "_blank" },
+                  _react2.default.createElement(_icon2.default, { type: "appstore" }),
+                  "\u56FD\u5185"
+                )
+              ),
+              _react2.default.createElement(
+                _menu2.default.Item,
+                { key: "guoji" },
+                _react2.default.createElement(
+                  _reactRouterDom.Link,
+                  { to: "/newslist/guoji", target: "_blank" },
+                  _react2.default.createElement(_icon2.default, { type: "appstore" }),
+                  "\u56FD\u9645"
+                )
+              ),
+              _react2.default.createElement(
+                _menu2.default.Item,
+                { key: "yule" },
+                _react2.default.createElement(
+                  _reactRouterDom.Link,
+                  { to: "/newslist/yule", target: "_blank" },
+                  _react2.default.createElement(_icon2.default, { type: "appstore" }),
+                  "\u5A31\u4E50"
+                )
+              ),
+              _react2.default.createElement(
+                _menu2.default.Item,
+                { key: "tiyu" },
+                _react2.default.createElement(
+                  _reactRouterDom.Link,
+                  { to: "/newslist/tiyu", target: "_blank" },
+                  _react2.default.createElement(_icon2.default, { type: "appstore" }),
+                  "\u4F53\u80B2"
+                )
+              ),
+              _react2.default.createElement(
+                _menu2.default.Item,
+                { key: "keji" },
+                _react2.default.createElement(
+                  _reactRouterDom.Link,
+                  { to: "/newslist/keji", target: "_blank" },
+                  _react2.default.createElement(_icon2.default, { type: "appstore" }),
+                  "\u79D1\u6280"
+                )
+              ),
+              _react2.default.createElement(
+                _menu2.default.Item,
+                { key: "shishang" },
+                _react2.default.createElement(
+                  _reactRouterDom.Link,
+                  { to: "/newslist/shishang", target: "_blank" },
+                  _react2.default.createElement(_icon2.default, { type: "appstore" }),
+                  "\u65F6\u5C1A"
+                )
+              ),
+              userShow
+            ),
+            _react2.default.createElement(
+              _modal2.default,
+              {
+                title: "\u7528\u6237\u4E2D\u5FC3",
+                wrapClassName: "vertical-center-modal",
+                visible: this.state.modalVisible,
+                onCancel: function onCancel() {
+                  return _this5.setModalVisible(false);
+                },
+                onOk: function onOk() {
+                  return _this5.setModalVisible(false);
+                },
+                okText: "\u5173\u95ED"
+              },
+              _react2.default.createElement(
+                _tabs2.default,
+                { type: "line", onChange: this.callback.bind(this) },
+                _react2.default.createElement(
+                  TabPane,
+                  { tab: "\u767B\u5F55", key: "1" },
+                  _react2.default.createElement(
+                    _form2.default,
+                    {
+                      layout: "horizontal",
+                      onSubmit: this.handleSubmitLogin.bind(this)
+                    },
+                    _react2.default.createElement(
+                      FormItem,
+                      { label: "\u8D26\u6237" },
+                      getFieldDecorator("userName", {
+                        rules: [{
+                          required: true,
+                          message: "请输入2-16位的合法用户名",
+                          pattern: /^[a-zA-Z0-9_-]{2,16}$/
+                        }]
+                      })(_react2.default.createElement(_input2.default, {
+                        prefix: _react2.default.createElement(_icon2.default, { type: "user", style: { fontSize: 14 } }),
+                        placeholder: "\u8BF7\u8F93\u5165\u60A8\u7684\u7528\u6237\u540D"
+                      }))
+                    ),
+                    _react2.default.createElement(
+                      FormItem,
+                      { label: "\u5BC6\u7801" },
+                      getFieldDecorator("password", {
+                        rules: [{
+                          required: true,
+                          message: "请输入4-18位的合法密码",
+                          pattern: /^\w{4,18}$/
+                        }]
+                      })(_react2.default.createElement(_input2.default, {
+                        type: "password",
+                        prefix: _react2.default.createElement(_icon2.default, { type: "lock", style: { fontSize: 14 } }),
+                        placeholder: "\u8BF7\u8F93\u5165\u60A8\u7684\u5BC6\u7801"
+                      }))
+                    ),
+                    _react2.default.createElement(
+                      _button2.default,
+                      { type: "primary", htmlType: "submit" },
+                      "\u767B\u5F55"
+                    )
+                  )
+                ),
+                _react2.default.createElement(
+                  TabPane,
+                  { tab: "\u6CE8\u518C", key: "2" },
+                  _react2.default.createElement(
+                    _form2.default,
+                    {
+                      layout: "horizontal",
+                      onSubmit: this.handleSubmitReguster.bind(this)
+                    },
+                    _react2.default.createElement(
+                      FormItem,
+                      { label: "\u8D26\u6237" },
+                      getFieldDecorator("r_userName", {
+                        rules: [{
+                          required: true,
+                          message: "用户名输入不合法",
+                          pattern: /^[a-zA-Z0-9_-]{2,16}$/
+                        }]
+                      })(_react2.default.createElement(_input2.default, { placeholder: "\u8BF7\u8F93\u51652-16\u4F4D\u7528\u6237\u540D" }))
+                    ),
+                    _react2.default.createElement(
+                      FormItem,
+                      { label: "\u5BC6\u7801" },
+                      getFieldDecorator("r_password", {
+                        rules: [{
+                          required: true,
+                          message: "密码格式不合法",
+                          validator: this.checkConfirm.bind(this)
+                        }]
+                      })(_react2.default.createElement(_input2.default, {
+                        type: "password",
+                        placeholder: "\u8BF7\u8F93\u51654-18\u4F4D\u7684\u7531\u6570\u5B57\u6216\u82F1\u6587\u7EC4\u6210\u7684\u5BC6\u7801"
+                      }))
+                    ),
+                    _react2.default.createElement(
+                      FormItem,
+                      { label: "\u786E\u8BA4\u5BC6\u7801" },
+                      getFieldDecorator("r_confirmPassword", {
+                        rules: [{
+                          required: true,
+                          message: "两次密码输入不一致",
+                          validator: this.checkPassword.bind(this)
+                        }]
+                      })(_react2.default.createElement(_input2.default, {
+                        type: "password",
+                        placeholder: "\u8BF7\u518D\u6B21\u8F93\u5165\u60A8\u7684\u5BC6\u7801",
+                        onBlur: this.handleConfirmBlur.bind(this)
+                      }))
+                    ),
+                    _react2.default.createElement(
+                      _button2.default,
+                      { type: "primary", htmlType: "submit" },
+                      "\u6CE8\u518C"
+                    )
+                  )
+                )
+              )
+            )
+          ),
+          _react2.default.createElement(_col2.default, { span: 2 })
+        )
+      );
+    }
+  }]);
 
-	return PCHeader;
+  return PCHeader;
 }(_react2.default.Component);
 
 exports.default = PCHeader = _form2.default.create({})(PCHeader);
@@ -9180,7 +9207,7 @@ module.exports = getMapData;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _row = __webpack_require__(26);
@@ -9206,36 +9233,36 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var PcFooter = function (_React$Component) {
-    _inherits(PcFooter, _React$Component);
+  _inherits(PcFooter, _React$Component);
 
-    function PcFooter() {
-        _classCallCheck(this, PcFooter);
+  function PcFooter() {
+    _classCallCheck(this, PcFooter);
 
-        return _possibleConstructorReturn(this, (PcFooter.__proto__ || Object.getPrototypeOf(PcFooter)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (PcFooter.__proto__ || Object.getPrototypeOf(PcFooter)).apply(this, arguments));
+  }
+
+  _createClass(PcFooter, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "footer",
+        { style: { paddingBottom: "10px" } },
+        _react2.default.createElement(
+          _row2.default,
+          null,
+          _react2.default.createElement(_col2.default, { span: 2 }),
+          _react2.default.createElement(
+            _col2.default,
+            { span: 20, className: "footer" },
+            "\xA9\xA02016 ReactNews. All Rights Reserved."
+          ),
+          _react2.default.createElement(_col2.default, { span: 2 })
+        )
+      );
     }
+  }]);
 
-    _createClass(PcFooter, [{
-        key: "render",
-        value: function render() {
-            return _react2.default.createElement(
-                "footer",
-                { style: { paddingBottom: "10px" } },
-                _react2.default.createElement(
-                    _row2.default,
-                    null,
-                    _react2.default.createElement(_col2.default, { span: 2 }),
-                    _react2.default.createElement(
-                        _col2.default,
-                        { span: 20, className: "footer" },
-                        "\xA9\xA02016 ReactNews. All Rights Reserved."
-                    ),
-                    _react2.default.createElement(_col2.default, { span: 2 })
-                )
-            );
-        }
-    }]);
-
-    return PcFooter;
+  return PcFooter;
 }(_react2.default.Component);
 
 exports.default = PcFooter;
@@ -24259,18 +24286,18 @@ var PcNewsImageBlock = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (PcNewsImageBlock.__proto__ || Object.getPrototypeOf(PcNewsImageBlock)).call(this));
 
     _this.state = {
-      news: ''
+      news: ""
     };
     return _this;
   }
 
   _createClass(PcNewsImageBlock, [{
-    key: 'componentWillMount',
+    key: "componentWillMount",
     value: function componentWillMount() {
       var _this2 = this;
 
       var myFetchOptions = {
-        method: 'GET'
+        method: "GET"
       };
       fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=getnews&type=" + this.props.type + "&count=" + this.props.count, myFetchOptions).then(function (response) {
         return response.json();
@@ -24279,10 +24306,10 @@ var PcNewsImageBlock = function (_React$Component) {
       });
     }
   }, {
-    key: 'block',
+    key: "block",
     value: function block() {}
   }, {
-    key: 'render',
+    key: "render",
     value: function render() {
       var news = this.state.news;
 
@@ -24299,36 +24326,36 @@ var PcNewsImageBlock = function (_React$Component) {
       };
       var newsList = news.length ? news.map(function (newsItem, index) {
         return _react2.default.createElement(
-          'div',
-          { key: index, className: 'imageblock' },
+          "div",
+          { key: index, className: "imageblock" },
           _react2.default.createElement(
             _reactRouterDom.Link,
-            { to: '/details/' + newsItem.uniquekey, target: '_blank' },
+            { to: "/details/" + newsItem.uniquekey, target: "_blank" },
             _react2.default.createElement(
-              'div',
-              { className: 'custom-image' },
-              _react2.default.createElement('img', { src: newsItem.thumbnail_pic_s, style: styleImage })
+              "div",
+              { className: "custom-image" },
+              _react2.default.createElement("img", { src: newsItem.thumbnail_pic_s, style: styleImage })
             ),
             _react2.default.createElement(
-              'div',
-              { className: 'custom-card' },
+              "div",
+              { className: "custom-card" },
               _react2.default.createElement(
-                'h3',
+                "h3",
                 { style: styeH3 },
                 newsItem.title
               ),
               _react2.default.createElement(
-                'p',
+                "p",
                 null,
                 newsItem.author_name
               )
             )
           )
         );
-      }) : '没有加载到任何新闻';
+      }) : "没有加载到任何新闻";
       return _react2.default.createElement(
-        'div',
-        { className: 'topNewsList' },
+        "div",
+        { className: "topNewsList" },
         _react2.default.createElement(
           _card2.default,
           {
@@ -24336,9 +24363,9 @@ var PcNewsImageBlock = function (_React$Component) {
             bordered: true,
             style: { width: this.props.width },
             extra: _react2.default.createElement(
-              'a',
-              { href: '/newslist/' + this.props.newsType },
-              'More'
+              "a",
+              { href: "/newslist/" + this.props.newsType },
+              "More"
             )
           },
           newsList
@@ -24360,7 +24387,7 @@ exports.default = PcNewsImageBlock;
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 var _modal = __webpack_require__(70);
@@ -24417,299 +24444,315 @@ var SubMenu = _menu2.default.SubMenu;
 var MenuItemGroup = _menu2.default.ItemGroup;
 
 var PCHeader = function (_React$Component) {
-	_inherits(PCHeader, _React$Component);
+  _inherits(PCHeader, _React$Component);
 
-	function PCHeader() {
-		_classCallCheck(this, PCHeader);
+  function PCHeader() {
+    _classCallCheck(this, PCHeader);
 
-		var _this = _possibleConstructorReturn(this, (PCHeader.__proto__ || Object.getPrototypeOf(PCHeader)).call(this));
+    var _this = _possibleConstructorReturn(this, (PCHeader.__proto__ || Object.getPrototypeOf(PCHeader)).call(this));
 
-		_this.state = {
-			confirmDirty: false,
-			current: '',
-			modalVisible: false,
-			action: 'login',
-			hasLogined: false,
-			userNickName: '',
-			userid: 0
-		};
-		return _this;
-	}
+    _this.state = {
+      confirmDirty: false,
+      current: "",
+      modalVisible: false,
+      action: "login",
+      hasLogined: false,
+      userNickName: "",
+      userid: 0
+    };
+    return _this;
+  }
 
-	_createClass(PCHeader, [{
-		key: 'componentWillMount',
-		value: function componentWillMount() {
-			if (localStorage.userid != '') {
-				this.setState({ hasLogined: true });
-				this.setState({ userNickName: localStorage.userNickName, userid: localStorage.userid });
-			};
-		}
-	}, {
-		key: 'setModalVisible',
-		value: function setModalVisible(value) {
-			this.setState({ modalVisible: value });
-		}
-	}, {
-		key: 'handleClick',
-		value: function handleClick(e) {
-			if (e.key == "register") {
-				this.setState({ current: 'register' });
-				this.setModalVisible(true);
-			} else {
-				{
-					this.setState({ current: e.key });
-				}
-			}
-		}
-	}, {
-		key: 'getDate',
-		value: function getDate(e) {
-			var _this2 = this;
+  _createClass(PCHeader, [{
+    key: "componentWillMount",
+    value: function componentWillMount() {
+      if (localStorage.userid != "") {
+        this.setState({ hasLogined: true });
+        this.setState({
+          userNickName: localStorage.userNickName,
+          userid: localStorage.userid
+        });
+      }
+    }
+  }, {
+    key: "setModalVisible",
+    value: function setModalVisible(value) {
+      this.setState({ modalVisible: value });
+    }
+  }, {
+    key: "handleClick",
+    value: function handleClick(e) {
+      if (e.key == "register") {
+        this.setState({ current: "register" });
+        this.setModalVisible(true);
+      } else {
+        {
+          this.setState({ current: e.key });
+        }
+      }
+    }
+  }, {
+    key: "getDate",
+    value: function getDate(e) {
+      var _this2 = this;
 
-			var myFetchOptions = {
-				method: 'GET'
-			};
-			var formData = this.props.form.getFieldsValue();
-			fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=" + this.state.action + "&username=" + formData.userName + "&password=" + formData.password + "&r_userName=" + formData.r_userName + "&r_password=" + formData.r_password + "&r_confirmPassword=" + formData.r_confirmPassword, myFetchOptions).then(function (response) {
-				return response.json();
-			}).then(function (json) {
-				_this2.setState({ userNickName: json.NickUserName, userid: json.UserId });
-				localStorage.userid = json.UserId;
-				localStorage.userNickName = json.NickUserName;
-			});
-			if (this.state.action == "login") {
-				this.setState({ hasLogined: true });
-			}
-			_message2.default.success("请求成功！");
-			this.setModalVisible(false);
-		}
-	}, {
-		key: 'handleSubmitLogin',
-		value: function handleSubmitLogin(e) {
-			var _this3 = this;
+      var myFetchOptions = {
+        method: "GET"
+      };
+      var formData = this.props.form.getFieldsValue();
+      fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=" + this.state.action + "&username=" + formData.userName + "&password=" + formData.password + "&r_userName=" + formData.r_userName + "&r_password=" + formData.r_password + "&r_confirmPassword=" + formData.r_confirmPassword, myFetchOptions).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        _this2.setState({ userNickName: json.NickUserName, userid: json.UserId });
+        localStorage.userid = json.UserId;
+        localStorage.userNickName = json.NickUserName;
+      });
+      if (this.state.action == "login") {
+        this.setState({ hasLogined: true });
+      }
+      _message2.default.success("请求成功！");
+      this.setModalVisible(false);
+    }
+  }, {
+    key: "handleSubmitLogin",
+    value: function handleSubmitLogin(e) {
+      var _this3 = this;
 
-			e.preventDefault();
-			this.props.form.validateFields(["userName", "password"], function (err, values) {
-				if (err) {
-					_message2.default.error("登录失败");
-				} else {
-					_this3.getDate(e);
-				}
-			});
-		}
-	}, {
-		key: 'handleSubmitReguster',
-		value: function handleSubmitReguster(e) {
-			var _this4 = this;
+      e.preventDefault();
+      this.props.form.validateFields(["userName", "password"], function (err, values) {
+        if (err) {
+          _message2.default.error("登录失败");
+        } else {
+          _this3.getDate(e);
+        }
+      });
+    }
+  }, {
+    key: "handleSubmitReguster",
+    value: function handleSubmitReguster(e) {
+      var _this4 = this;
 
-			e.preventDefault();
-			this.props.form.validateFields(["r_userName", "r_password", "r_confirmPassword"], function (err, values) {
-				console.log(err);
-				if (err) {
-					_message2.default.error("注册失败");
-				} else {
-					_this4.getDate(e);
-				}
-			});
-		}
-	}, {
-		key: 'callback',
-		value: function callback(key) {
-			if (key == 1) {
-				this.setState({ action: 'login' });
-			} else if (key == 2) {
-				this.setState({ action: 'register' });
-			}
-		}
-	}, {
-		key: 'logout',
-		value: function logout() {
-			localStorage.userid = '';
-			localStorage.userNickName = '';
-			this.setState({ hasLogined: false, userNickName: '', userid: '' });
-			window.location.href = '/';
-		}
-	}, {
-		key: 'login',
-		value: function login() {
-			this.setModalVisible(true);
-		}
-	}, {
-		key: 'handleConfirmBlur',
-		value: function handleConfirmBlur(e) {
-			var value = e.target.value;
-			this.setState({ confirmDirty: this.state.confirmDirty || !!value });
-		}
-	}, {
-		key: 'checkPassword',
-		value: function checkPassword(rule, value, callback) {
-			var form = this.props.form;
-			if (value && value !== form.getFieldValue('r_password')) {
-				callback('两次输入不一致');
-			} else if (!value) {
-				callback('请填写值');
-			} else {
-				callback();
-			}
-		}
-	}, {
-		key: 'checkConfirm',
-		value: function checkConfirm(rule, value, callback) {
-			var form = this.props.form;
-			var re = /^\w{4,18}$/;
-			if (!value || !re.test(value)) {
-				callback('密码格式错误');
-			} else if (value && this.state.confirmDirty) {
-				form.validateFields(['r_confirmPassword'], { force: true });
-			}
-			callback();
-		}
-	}, {
-		key: 'render',
-		value: function render() {
-			var _this5 = this;
+      e.preventDefault();
+      this.props.form.validateFields(["r_userName", "r_password", "r_confirmPassword"], function (err, values) {
+        console.log(err);
+        if (err) {
+          _message2.default.error("注册失败");
+        } else {
+          _this4.getDate(e);
+        }
+      });
+    }
+  }, {
+    key: "callback",
+    value: function callback(key) {
+      if (key == 1) {
+        this.setState({ action: "login" });
+      } else if (key == 2) {
+        this.setState({ action: "register" });
+      }
+    }
+  }, {
+    key: "logout",
+    value: function logout() {
+      localStorage.userid = "";
+      localStorage.userNickName = "";
+      this.setState({ hasLogined: false, userNickName: "", userid: "" });
+      window.location.href = "/";
+    }
+  }, {
+    key: "login",
+    value: function login() {
+      this.setModalVisible(true);
+    }
+  }, {
+    key: "handleConfirmBlur",
+    value: function handleConfirmBlur(e) {
+      var value = e.target.value;
+      this.setState({ confirmDirty: this.state.confirmDirty || !!value });
+    }
+  }, {
+    key: "checkPassword",
+    value: function checkPassword(rule, value, callback) {
+      var form = this.props.form;
+      if (value && value !== form.getFieldValue("r_password")) {
+        callback("两次输入不一致");
+      } else if (!value) {
+        callback("请填写值");
+      } else {
+        callback();
+      }
+    }
+  }, {
+    key: "checkConfirm",
+    value: function checkConfirm(rule, value, callback) {
+      var form = this.props.form;
+      var re = /^\w{4,18}$/;
+      if (!value || !re.test(value)) {
+        callback("密码格式错误");
+      } else if (value && this.state.confirmDirty) {
+        form.validateFields(["r_confirmPassword"], { force: true });
+      }
+      callback();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this5 = this;
 
-			var getFieldDecorator = this.props.form.getFieldDecorator;
+      var getFieldDecorator = this.props.form.getFieldDecorator;
 
-			var userShow = this.state.hasLogined ? _react2.default.createElement(
-				'div',
-				{ style: { float: 'right' } },
-				_react2.default.createElement(
-					_reactRouterDom.Link,
-					{ to: '/usercenter' },
-					_react2.default.createElement(_icon2.default, { type: 'inbox' })
-				),
-				_react2.default.createElement(
-					_reactRouterDom.Link,
-					{ to: '/', onClick: this.logout.bind(this) },
-					_react2.default.createElement(_icon2.default, { type: 'logout', style: { color: "red" } })
-				)
-			) : _react2.default.createElement(_icon2.default, { type: 'setting', onClick: this.login.bind(this) });
+      var userShow = this.state.hasLogined ? _react2.default.createElement(
+        "div",
+        { style: { float: "right" } },
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { to: "/usercenter" },
+          _react2.default.createElement(_icon2.default, { type: "inbox" })
+        ),
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { to: "/", onClick: this.logout.bind(this) },
+          _react2.default.createElement(_icon2.default, { type: "logout", style: { color: "red" } })
+        )
+      ) : _react2.default.createElement(_icon2.default, { type: "setting", onClick: this.login.bind(this) });
 
-			return _react2.default.createElement(
-				'div',
-				{ id: 'mobileheader' },
-				_react2.default.createElement(
-					'header',
-					null,
-					's',
-					_react2.default.createElement('img', { src: '/src/images/news_logo.png', alt: 'logo' }),
-					_react2.default.createElement(
-						'span',
-						null,
-						'ReactNews'
-					),
-					userShow
-				),
-				_react2.default.createElement(
-					_modal2.default,
-					{ title: '\u7528\u6237\u4E2D\u5FC3',
-						wrapClassName: 'vertical-center-modal',
-						visible: this.state.modalVisible,
-						onCancel: function onCancel() {
-							return _this5.setModalVisible(false);
-						},
-						onOk: function onOk() {
-							return _this5.setModalVisible(false);
-						}, okText: '\u5173\u95ED' },
-					_react2.default.createElement(
-						_tabs2.default,
-						{ type: 'line', onChange: this.callback.bind(this) },
-						_react2.default.createElement(
-							TabPane,
-							{ tab: '\u767B\u5F55', key: '1' },
-							_react2.default.createElement(
-								_form2.default,
-								{ layout: 'horizontal', onSubmit: this.handleSubmitLogin.bind(this) },
-								_react2.default.createElement(
-									FormItem,
-									{ label: '\u8D26\u6237' },
-									getFieldDecorator('userName', {
-										rules: [{
-											required: true,
-											message: '请输入2-16位的合法用户名',
-											pattern: /^[a-zA-Z0-9_-]{2,16}$/
-										}]
-									})(_react2.default.createElement(_input2.default, {
-										prefix: _react2.default.createElement(_icon2.default, { type: 'user', style: { fontSize: 14 } }),
-										placeholder: '\u8BF7\u8F93\u5165\u60A8\u7684\u7528\u6237\u540D'
-									}))
-								),
-								_react2.default.createElement(
-									FormItem,
-									{ label: '\u5BC6\u7801' },
-									getFieldDecorator('password', {
-										rules: [{
-											required: true,
-											message: '请输入4-18位的合法密码',
-											pattern: /^\w{4,18}$/
-										}]
-									})(_react2.default.createElement(_input2.default, {
-										type: 'password',
-										prefix: _react2.default.createElement(_icon2.default, { type: 'lock', style: { fontSize: 14 } }),
-										placeholder: '\u8BF7\u8F93\u5165\u60A8\u7684\u5BC6\u7801'
-									}))
-								),
-								_react2.default.createElement(
-									_button2.default,
-									{ type: 'primary', htmlType: 'submit' },
-									'\u767B\u5F55'
-								)
-							)
-						),
-						_react2.default.createElement(
-							TabPane,
-							{ tab: '\u6CE8\u518C', key: '2' },
-							_react2.default.createElement(
-								_form2.default,
-								{ layout: 'horizontal', onSubmit: this.handleSubmitReguster.bind(this) },
-								_react2.default.createElement(
-									FormItem,
-									{ label: '\u8D26\u6237' },
-									getFieldDecorator('r_userName', {
-										rules: [{
-											required: true,
-											message: '用户名输入不合法',
-											pattern: /^[a-zA-Z0-9_-]{2,16}$/
-										}]
-									})(_react2.default.createElement(_input2.default, { placeholder: '\u8BF7\u8F93\u51652-16\u4F4D\u7528\u6237\u540D' }))
-								),
-								_react2.default.createElement(
-									FormItem,
-									{ label: '\u5BC6\u7801' },
-									getFieldDecorator('r_password', {
-										rules: [{
-											required: true,
-											message: '密码格式不合法',
-											validator: this.checkConfirm.bind(this)
-										}]
-									})(_react2.default.createElement(_input2.default, { type: 'password', placeholder: '\u8BF7\u8F93\u51654-18\u4F4D\u7684\u7531\u6570\u5B57\u6216\u82F1\u6587\u7EC4\u6210\u7684\u5BC6\u7801' }))
-								),
-								_react2.default.createElement(
-									FormItem,
-									{ label: '\u786E\u8BA4\u5BC6\u7801' },
-									getFieldDecorator('r_confirmPassword', {
-										rules: [{
-											required: true,
-											message: '两次密码输入不一致',
-											validator: this.checkPassword.bind(this)
-										}]
-									})(_react2.default.createElement(_input2.default, { type: 'password', placeholder: '\u8BF7\u518D\u6B21\u8F93\u5165\u60A8\u7684\u5BC6\u7801', onBlur: this.handleConfirmBlur.bind(this) }))
-								),
-								_react2.default.createElement(
-									_button2.default,
-									{ type: 'primary', htmlType: 'submit' },
-									'\u6CE8\u518C'
-								)
-							)
-						)
-					)
-				)
-			);
-		}
-	}]);
+      return _react2.default.createElement(
+        "div",
+        { id: "mobileheader" },
+        _react2.default.createElement(
+          "header",
+          null,
+          "s",
+          _react2.default.createElement("img", { src: "/src/images/news_logo.png", alt: "logo" }),
+          _react2.default.createElement(
+            "span",
+            null,
+            "ReactNews"
+          ),
+          userShow
+        ),
+        _react2.default.createElement(
+          _modal2.default,
+          {
+            title: "\u7528\u6237\u4E2D\u5FC3",
+            wrapClassName: "vertical-center-modal",
+            visible: this.state.modalVisible,
+            onCancel: function onCancel() {
+              return _this5.setModalVisible(false);
+            },
+            onOk: function onOk() {
+              return _this5.setModalVisible(false);
+            },
+            okText: "\u5173\u95ED"
+          },
+          _react2.default.createElement(
+            _tabs2.default,
+            { type: "line", onChange: this.callback.bind(this) },
+            _react2.default.createElement(
+              TabPane,
+              { tab: "\u767B\u5F55", key: "1" },
+              _react2.default.createElement(
+                _form2.default,
+                {
+                  layout: "horizontal",
+                  onSubmit: this.handleSubmitLogin.bind(this)
+                },
+                _react2.default.createElement(
+                  FormItem,
+                  { label: "\u8D26\u6237" },
+                  getFieldDecorator("userName", {
+                    rules: [{
+                      required: true,
+                      message: "请输入2-16位的合法用户名",
+                      pattern: /^[a-zA-Z0-9_-]{2,16}$/
+                    }]
+                  })(_react2.default.createElement(_input2.default, {
+                    prefix: _react2.default.createElement(_icon2.default, { type: "user", style: { fontSize: 14 } }),
+                    placeholder: "\u8BF7\u8F93\u5165\u60A8\u7684\u7528\u6237\u540D"
+                  }))
+                ),
+                _react2.default.createElement(
+                  FormItem,
+                  { label: "\u5BC6\u7801" },
+                  getFieldDecorator("password", {
+                    rules: [{
+                      required: true,
+                      message: "请输入4-18位的合法密码",
+                      pattern: /^\w{4,18}$/
+                    }]
+                  })(_react2.default.createElement(_input2.default, {
+                    type: "password",
+                    prefix: _react2.default.createElement(_icon2.default, { type: "lock", style: { fontSize: 14 } }),
+                    placeholder: "\u8BF7\u8F93\u5165\u60A8\u7684\u5BC6\u7801"
+                  }))
+                ),
+                _react2.default.createElement(
+                  _button2.default,
+                  { type: "primary", htmlType: "submit" },
+                  "\u767B\u5F55"
+                )
+              )
+            ),
+            _react2.default.createElement(
+              TabPane,
+              { tab: "\u6CE8\u518C", key: "2" },
+              _react2.default.createElement(
+                _form2.default,
+                {
+                  layout: "horizontal",
+                  onSubmit: this.handleSubmitReguster.bind(this)
+                },
+                _react2.default.createElement(
+                  FormItem,
+                  { label: "\u8D26\u6237" },
+                  getFieldDecorator("r_userName", {
+                    rules: [{
+                      required: true,
+                      message: "用户名输入不合法",
+                      pattern: /^[a-zA-Z0-9_-]{2,16}$/
+                    }]
+                  })(_react2.default.createElement(_input2.default, { placeholder: "\u8BF7\u8F93\u51652-16\u4F4D\u7528\u6237\u540D" }))
+                ),
+                _react2.default.createElement(
+                  FormItem,
+                  { label: "\u5BC6\u7801" },
+                  getFieldDecorator("r_password", {
+                    rules: [{
+                      required: true,
+                      message: "密码格式不合法",
+                      validator: this.checkConfirm.bind(this)
+                    }]
+                  })(_react2.default.createElement(_input2.default, { type: "password", placeholder: "\u8BF7\u8F93\u51654-18\u4F4D\u7684\u7531\u6570\u5B57\u6216\u82F1\u6587\u7EC4\u6210\u7684\u5BC6\u7801" }))
+                ),
+                _react2.default.createElement(
+                  FormItem,
+                  { label: "\u786E\u8BA4\u5BC6\u7801" },
+                  getFieldDecorator("r_confirmPassword", {
+                    rules: [{
+                      required: true,
+                      message: "两次密码输入不一致",
+                      validator: this.checkPassword.bind(this)
+                    }]
+                  })(_react2.default.createElement(_input2.default, {
+                    type: "password",
+                    placeholder: "\u8BF7\u518D\u6B21\u8F93\u5165\u60A8\u7684\u5BC6\u7801",
+                    onBlur: this.handleConfirmBlur.bind(this)
+                  }))
+                ),
+                _react2.default.createElement(
+                  _button2.default,
+                  { type: "primary", htmlType: "submit" },
+                  "\u6CE8\u518C"
+                )
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
 
-	return PCHeader;
+  return PCHeader;
 }(_react2.default.Component);
 
 exports.default = PCHeader = _form2.default.create({})(PCHeader);
@@ -24722,7 +24765,7 @@ exports.default = PCHeader = _form2.default.create({})(PCHeader);
 
 
 Object.defineProperty(exports, "__esModule", {
-   value: true
+  value: true
 });
 
 var _row = __webpack_require__(26);
@@ -24748,36 +24791,36 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var MobileFooter = function (_React$Component) {
-   _inherits(MobileFooter, _React$Component);
+  _inherits(MobileFooter, _React$Component);
 
-   function MobileFooter() {
-      _classCallCheck(this, MobileFooter);
+  function MobileFooter() {
+    _classCallCheck(this, MobileFooter);
 
-      return _possibleConstructorReturn(this, (MobileFooter.__proto__ || Object.getPrototypeOf(MobileFooter)).apply(this, arguments));
-   }
+    return _possibleConstructorReturn(this, (MobileFooter.__proto__ || Object.getPrototypeOf(MobileFooter)).apply(this, arguments));
+  }
 
-   _createClass(MobileFooter, [{
-      key: "render",
-      value: function render() {
-         return _react2.default.createElement(
-            "footer",
-            { style: { paddingBottom: "10px" } },
-            _react2.default.createElement(
-               _row2.default,
-               null,
-               _react2.default.createElement(_col2.default, { span: 2 }),
-               _react2.default.createElement(
-                  _col2.default,
-                  { span: 20, className: "footer" },
-                  "\xA9\xA02016 ReactNews. All Rights Reserved."
-               ),
-               _react2.default.createElement(_col2.default, { span: 2 })
-            )
-         );
-      }
-   }]);
+  _createClass(MobileFooter, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "footer",
+        { style: { paddingBottom: "10px" } },
+        _react2.default.createElement(
+          _row2.default,
+          null,
+          _react2.default.createElement(_col2.default, { span: 2 }),
+          _react2.default.createElement(
+            _col2.default,
+            { span: 20, className: "footer" },
+            "\xA9\xA02016 ReactNews. All Rights Reserved."
+          ),
+          _react2.default.createElement(_col2.default, { span: 2 })
+        )
+      );
+    }
+  }]);
 
-   return MobileFooter;
+  return MobileFooter;
 }(_react2.default.Component);
 
 exports.default = MobileFooter;
@@ -24983,7 +25026,7 @@ module.exports = exports['default'];
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 var _row = __webpack_require__(26);
@@ -25035,122 +25078,133 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var FormItem = _form2.default.Item;
 
 var CommonComments = function (_React$Component) {
-	_inherits(CommonComments, _React$Component);
+  _inherits(CommonComments, _React$Component);
 
-	function CommonComments() {
-		_classCallCheck(this, CommonComments);
+  function CommonComments() {
+    _classCallCheck(this, CommonComments);
 
-		var _this = _possibleConstructorReturn(this, (CommonComments.__proto__ || Object.getPrototypeOf(CommonComments)).call(this));
+    var _this = _possibleConstructorReturn(this, (CommonComments.__proto__ || Object.getPrototypeOf(CommonComments)).call(this));
 
-		_this.state = {
-			comments: ''
-		};
-		return _this;
-	}
+    _this.state = {
+      comments: ""
+    };
+    return _this;
+  }
 
-	_createClass(CommonComments, [{
-		key: 'componentDidMount',
-		value: function componentDidMount() {
-			var _this2 = this;
+  _createClass(CommonComments, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
 
-			var myFetchOptions = {
-				method: 'GET'
-			};
-			fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=getcomments&uniquekey=" + this.props.uniquekey, myFetchOptions).then(function (response) {
-				return response.json();
-			}).then(function (json) {
-				_this2.setState({ comments: json });
-			});
-		}
-	}, {
-		key: 'handleSubmit',
-		value: function handleSubmit(e) {
-			var _this3 = this;
+      var myFetchOptions = {
+        method: "GET"
+      };
+      fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=getcomments&uniquekey=" + this.props.uniquekey, myFetchOptions).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        _this2.setState({ comments: json });
+      });
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      var _this3 = this;
 
-			e.preventDefault();
-			var myFetchOptions = {
-				method: 'GET'
-			};
-			var formdata = this.props.form.getFieldsValue();
-			fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=comment&userid=" + localStorage.userid + "&uniquekey=" + this.props.uniquekey + "&commnet=" + formdata.remark, myFetchOptions).then(function (response) {
-				return response.json();
-			}).then(function (json) {
-				_this3.componentDidMount();
-				_message2.default.success('评论成功');
-			});
-		}
-	}, {
-		key: 'addUserCollection',
-		value: function addUserCollection() {
-			var myFetchOptions = {
-				method: 'GET'
-			};
-			fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=uc&userid=" + localStorage.userid + "&uniquekey=" + this.props.uniquekey, myFetchOptions).then(function (response) {
-				return response.json();
-			}).then(function (json) {
-				_notification2.default['success']({ message: 'ReactNews提醒', description: '收藏此文章成功' });
-			});
-		}
-	}, {
-		key: 'render',
-		value: function render() {
-			var getFieldDecorator = this.props.form.getFieldDecorator;
-			var comments = this.state.comments;
+      e.preventDefault();
+      var myFetchOptions = {
+        method: "GET"
+      };
+      var formdata = this.props.form.getFieldsValue();
+      fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=comment&userid=" + localStorage.userid + "&uniquekey=" + this.props.uniquekey + "&commnet=" + formdata.remark, myFetchOptions).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        _this3.componentDidMount();
+        _message2.default.success("评论成功");
+      });
+    }
+  }, {
+    key: "addUserCollection",
+    value: function addUserCollection() {
+      var myFetchOptions = {
+        method: "GET"
+      };
+      fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=uc&userid=" + localStorage.userid + "&uniquekey=" + this.props.uniquekey, myFetchOptions).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        _notification2.default["success"]({
+          message: "ReactNews提醒",
+          description: "收藏此文章成功"
+        });
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var getFieldDecorator = this.props.form.getFieldDecorator;
+      var comments = this.state.comments;
 
-			var commnetList = comments.length ? comments.map(function (comment, index) {
-				return _react2.default.createElement(
-					_card2.default,
-					{ key: index, title: comment.UserName, extra: _react2.default.createElement(
-							'a',
-							{ href: '#' },
-							' \u53D1\u5E03\u4E8E ',
-							comment.datetime,
-							' '
-						) },
-					_react2.default.createElement(
-						'p',
-						null,
-						comment.Comments
-					)
-				);
-			}) : '没有加载到任何评论';
-			return _react2.default.createElement(
-				'div',
-				{ className: 'comment' },
-				_react2.default.createElement(
-					_row2.default,
-					null,
-					_react2.default.createElement(
-						_col2.default,
-						{ span: 24 },
-						commnetList,
-						_react2.default.createElement(
-							_form2.default,
-							{ onSubmit: this.handleSubmit.bind(this) },
-							_react2.default.createElement(
-								FormItem,
-								{ label: '\u60A8\u7684\u8BC4\u8BBA' },
-								getFieldDecorator('remark', { initialValue: '' })(_react2.default.createElement(_input2.default, { type: 'textarea', placeholder: '\u968F\u4FBF\u5199' }))
-							),
-							_react2.default.createElement(
-								_button2.default,
-								{ type: 'primary', htmlType: 'submit' },
-								'\u63D0\u4EA4\u8BC4\u8BBA'
-							),
-							'\xA0\xA0',
-							_react2.default.createElement(
-								_button2.default,
-								{ type: 'primary', htmlType: 'button', onClick: this.addUserCollection.bind(this) },
-								'\u6536\u85CF\u8BE5\u6587\u7AE0'
-							)
-						)
-					)
-				)
-			);
-		}
-	}]);
+      var commnetList = comments.length ? comments.map(function (comment, index) {
+        return _react2.default.createElement(
+          _card2.default,
+          {
+            key: index,
+            title: comment.UserName,
+            extra: _react2.default.createElement(
+              "a",
+              { href: "#" },
+              " \u53D1\u5E03\u4E8E ",
+              comment.datetime,
+              " "
+            )
+          },
+          _react2.default.createElement(
+            "p",
+            null,
+            comment.Comments
+          )
+        );
+      }) : "没有加载到任何评论";
+      return _react2.default.createElement(
+        "div",
+        { className: "comment" },
+        _react2.default.createElement(
+          _row2.default,
+          null,
+          _react2.default.createElement(
+            _col2.default,
+            { span: 24 },
+            commnetList,
+            _react2.default.createElement(
+              _form2.default,
+              { onSubmit: this.handleSubmit.bind(this) },
+              _react2.default.createElement(
+                FormItem,
+                { label: "\u60A8\u7684\u8BC4\u8BBA" },
+                getFieldDecorator("remark", { initialValue: "" })(_react2.default.createElement(_input2.default, { type: "textarea", placeholder: "\u968F\u4FBF\u5199" }))
+              ),
+              _react2.default.createElement(
+                _button2.default,
+                { type: "primary", htmlType: "submit" },
+                "\u63D0\u4EA4\u8BC4\u8BBA"
+              ),
+              "\xA0\xA0",
+              _react2.default.createElement(
+                _button2.default,
+                {
+                  type: "primary",
+                  htmlType: "button",
+                  onClick: this.addUserCollection.bind(this)
+                },
+                "\u6536\u85CF\u8BE5\u6587\u7AE0"
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
 
-	return CommonComments;
+  return CommonComments;
 }(_react2.default.Component);
 
 exports.default = CommonComments = _form2.default.create({})(CommonComments);
@@ -26294,7 +26348,7 @@ var SelectPropTypes = {
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -26352,62 +26406,62 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var Root = function (_React$Component) {
-	_inherits(Root, _React$Component);
+  _inherits(Root, _React$Component);
 
-	function Root() {
-		_classCallCheck(this, Root);
+  function Root() {
+    _classCallCheck(this, Root);
 
-		return _possibleConstructorReturn(this, (Root.__proto__ || Object.getPrototypeOf(Root)).apply(this, arguments));
-	}
+    return _possibleConstructorReturn(this, (Root.__proto__ || Object.getPrototypeOf(Root)).apply(this, arguments));
+  }
 
-	_createClass(Root, [{
-		key: "render",
-		value: function render() {
-			return _react2.default.createElement(
-				"div",
-				null,
-				_react2.default.createElement(
-					_reactResponsive2.default,
-					{ query: "(min-device-width:1224px)" },
-					_react2.default.createElement(
-						_reactRouterDom.BrowserRouter,
-						null,
-						_react2.default.createElement(
-							_reactRouterDom.Switch,
-							null,
-							_react2.default.createElement(_reactRouterDom.Route, { exact: true, path: "/", component: _pc_index2.default }),
-							_react2.default.createElement(_reactRouterDom.Route, { path: "/newslist/:type", component: _pc_newsList2.default }),
-							_react2.default.createElement(_reactRouterDom.Route, { path: "/details/:uniquekey", component: _pc_news_details2.default }),
-							_react2.default.createElement(_reactRouterDom.Route, { path: "/usercenter", component: _pc_usercenter2.default })
-						)
-					)
-				),
-				_react2.default.createElement(
-					_reactResponsive2.default,
-					{ query: "(max-device-width:1224px)" },
-					_react2.default.createElement(
-						_reactRouterDom.BrowserRouter,
-						null,
-						_react2.default.createElement(
-							_reactRouterDom.Switch,
-							null,
-							_react2.default.createElement(_reactRouterDom.Route, { exact: true, path: "/", component: _mobile_index2.default }),
-							_react2.default.createElement(_reactRouterDom.Route, { path: "/details/:uniquekey", component: _mobile_news_details2.default }),
-							_react2.default.createElement(_reactRouterDom.Route, { path: "/usercenter", component: _mobile_usercenter2.default })
-						)
-					)
-				)
-			);
-		}
-	}]);
+  _createClass(Root, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          _reactResponsive2.default,
+          { query: "(min-device-width:1224px)" },
+          _react2.default.createElement(
+            _reactRouterDom.BrowserRouter,
+            null,
+            _react2.default.createElement(
+              _reactRouterDom.Switch,
+              null,
+              _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: "/", component: _pc_index2.default }),
+              _react2.default.createElement(_reactRouterDom.Route, { path: "/newslist/:type", component: _pc_newsList2.default }),
+              _react2.default.createElement(_reactRouterDom.Route, { path: "/details/:uniquekey", component: _pc_news_details2.default }),
+              _react2.default.createElement(_reactRouterDom.Route, { path: "/usercenter", component: _pc_usercenter2.default })
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _reactResponsive2.default,
+          { query: "(max-device-width:1224px)" },
+          _react2.default.createElement(
+            _reactRouterDom.BrowserRouter,
+            null,
+            _react2.default.createElement(
+              _reactRouterDom.Switch,
+              null,
+              _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: "/", component: _mobile_index2.default }),
+              _react2.default.createElement(_reactRouterDom.Route, { path: "/details/:uniquekey", component: _mobile_news_details2.default }),
+              _react2.default.createElement(_reactRouterDom.Route, { path: "/usercenter", component: _mobile_usercenter2.default })
+            )
+          )
+        )
+      );
+    }
+  }]);
 
-	return Root;
+  return Root;
 }(_react2.default.Component);
 
 exports.default = Root;
 
 
-_reactDom2.default.render(_react2.default.createElement(Root, null), document.getElementById('mainContainer'));
+_reactDom2.default.render(_react2.default.createElement(Root, null), document.getElementById("mainContainer"));
 
 /***/ }),
 /* 265 */
@@ -40090,7 +40144,7 @@ module.exports = function (css) {
 
 
 Object.defineProperty(exports, "__esModule", {
-     value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -40120,33 +40174,33 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var PcIndex = function (_React$Component) {
-     _inherits(PcIndex, _React$Component);
+  _inherits(PcIndex, _React$Component);
 
-     function PcIndex() {
-          _classCallCheck(this, PcIndex);
+  function PcIndex() {
+    _classCallCheck(this, PcIndex);
 
-          return _possibleConstructorReturn(this, (PcIndex.__proto__ || Object.getPrototypeOf(PcIndex)).apply(this, arguments));
-     }
+    return _possibleConstructorReturn(this, (PcIndex.__proto__ || Object.getPrototypeOf(PcIndex)).apply(this, arguments));
+  }
 
-     _createClass(PcIndex, [{
-          key: 'componentWillMount',
-          value: function componentWillMount() {
-               document.title = '首页 React News | React 驱动的新闻平台';
-          }
-     }, {
-          key: 'render',
-          value: function render() {
-               return _react2.default.createElement(
-                    'div',
-                    null,
-                    _react2.default.createElement(_pc_header2.default, null),
-                    _react2.default.createElement(_pc_newscontainer2.default, null),
-                    _react2.default.createElement(_pc_footer2.default, null)
-               );
-          }
-     }]);
+  _createClass(PcIndex, [{
+    key: "componentWillMount",
+    value: function componentWillMount() {
+      document.title = "首页 React News | React 驱动的新闻平台";
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(_pc_header2.default, null),
+        _react2.default.createElement(_pc_newscontainer2.default, null),
+        _react2.default.createElement(_pc_footer2.default, null)
+      );
+    }
+  }]);
 
-     return PcIndex;
+  return PcIndex;
 }(_react2.default.Component);
 
 exports.default = PcIndex;
@@ -53154,7 +53208,7 @@ module.exports = exports['default'];
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _row = __webpack_require__(26);
@@ -53198,117 +53252,160 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var TabPane = _tabs2.default.TabPane;
 
 var PcNewsContainer = function (_React$Component) {
-    _inherits(PcNewsContainer, _React$Component);
+  _inherits(PcNewsContainer, _React$Component);
 
-    function PcNewsContainer() {
-        _classCallCheck(this, PcNewsContainer);
+  function PcNewsContainer() {
+    _classCallCheck(this, PcNewsContainer);
 
-        return _possibleConstructorReturn(this, (PcNewsContainer.__proto__ || Object.getPrototypeOf(PcNewsContainer)).apply(this, arguments));
-    }
+    return _possibleConstructorReturn(this, (PcNewsContainer.__proto__ || Object.getPrototypeOf(PcNewsContainer)).apply(this, arguments));
+  }
 
-    _createClass(PcNewsContainer, [{
-        key: 'render',
-        value: function render() {
-            var settings = {
-                dots: true,
-                infinite: true,
-                speed: 500,
-                slidesToShow: 1,
-                autoplay: true
-            };
-            return _react2.default.createElement(
-                'div',
-                null,
+  _createClass(PcNewsContainer, [{
+    key: "render",
+    value: function render() {
+      var settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        autoplay: true
+      };
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(
+          _row2.default,
+          null,
+          _react2.default.createElement(_col2.default, { span: 2 }),
+          _react2.default.createElement(
+            _col2.default,
+            { span: 20, className: "container" },
+            _react2.default.createElement(
+              _row2.default,
+              null,
+              _react2.default.createElement(
+                _col2.default,
+                { span: 8 },
                 _react2.default.createElement(
-                    _row2.default,
-                    null,
-                    _react2.default.createElement(_col2.default, { span: 2 }),
+                  "div",
+                  { className: "leftContainer" },
+                  _react2.default.createElement(
+                    "div",
+                    { className: "carousel" },
                     _react2.default.createElement(
-                        _col2.default,
-                        { span: 20, className: 'container' },
-                        _react2.default.createElement(
-                            _row2.default,
-                            null,
-                            _react2.default.createElement(
-                                _col2.default,
-                                { span: 8 },
-                                _react2.default.createElement(
-                                    'div',
-                                    { className: 'leftContainer' },
-                                    _react2.default.createElement(
-                                        'div',
-                                        { className: 'carousel' },
-                                        _react2.default.createElement(
-                                            _carousel2.default,
-                                            settings,
-                                            _react2.default.createElement(
-                                                'div',
-                                                null,
-                                                _react2.default.createElement('img', { src: './src/images/banner1.jpg' })
-                                            ),
-                                            _react2.default.createElement(
-                                                'div',
-                                                null,
-                                                _react2.default.createElement('img', { src: './src/images/banner2.jpg' })
-                                            ),
-                                            _react2.default.createElement(
-                                                'div',
-                                                null,
-                                                _react2.default.createElement('img', { src: './src/images/banner3.jpg' })
-                                            ),
-                                            _react2.default.createElement(
-                                                'div',
-                                                null,
-                                                _react2.default.createElement('img', { src: './src/images/banner4.jpg' })
-                                            )
-                                        )
-                                    ),
-                                    _react2.default.createElement(_pc_news_image_block2.default, { count: 6, type: 'guoji', width: '400px', cartTitle: '\u56FD\u9645\u5934\u6761', imageWidth: '112px', newsType: 'guoji' })
-                                )
-                            ),
-                            _react2.default.createElement(
-                                _col2.default,
-                                { span: 9 },
-                                _react2.default.createElement(
-                                    _tabs2.default,
-                                    { className: 'tabs_news' },
-                                    _react2.default.createElement(
-                                        TabPane,
-                                        { tab: '\u5934\u6761\u65B0\u95FB', key: '1' },
-                                        _react2.default.createElement(_pc_news_block2.default, { count: 21, type: 'top', width: '100%', bordered: 'false' })
-                                    ),
-                                    _react2.default.createElement(
-                                        TabPane,
-                                        { tab: '\u56FD\u9645', key: '2' },
-                                        _react2.default.createElement(_pc_news_block2.default, { count: 21, type: 'guoji', width: '100%', bordered: 'false' })
-                                    ),
-                                    _react2.default.createElement(
-                                        TabPane,
-                                        { tab: '\u79D1\u6280', key: '3' },
-                                        _react2.default.createElement(_pc_news_block2.default, { count: 21, type: 'keji', width: '100%', bordered: 'false' })
-                                    )
-                                )
-                            ),
-                            _react2.default.createElement(
-                                _col2.default,
-                                { span: 7 },
-                                _react2.default.createElement(
-                                    'div',
-                                    { className: 'rightContainer' },
-                                    _react2.default.createElement(_pc_news_image_block2.default, { count: 2, type: 'guonei', width: '316px', cartTitle: '\u56FD\u5185\u70ED\u70B9', imageWidth: '285px', newsType: 'guonei' })
-                                )
-                            )
-                        ),
-                        _react2.default.createElement(_pc_news_image_block2.default, { count: 8, type: 'yule', width: '100%', cartTitle: '\u5A31\u4E50\u65B0\u95FB', imageWidth: '132px', newsType: 'yule' }),
-                        _react2.default.createElement(_pc_news_image_block2.default, { count: 16, type: 'shehui', width: '100%', cartTitle: '\u793E\u4F1A\u65B0\u95FB', imageWidth: '132px', newsType: 'shehui' })
-                    ),
-                    _react2.default.createElement(_col2.default, { span: 2 })
+                      _carousel2.default,
+                      settings,
+                      _react2.default.createElement(
+                        "div",
+                        null,
+                        _react2.default.createElement("img", { src: "./src/images/banner1.jpg" })
+                      ),
+                      _react2.default.createElement(
+                        "div",
+                        null,
+                        _react2.default.createElement("img", { src: "./src/images/banner2.jpg" })
+                      ),
+                      _react2.default.createElement(
+                        "div",
+                        null,
+                        _react2.default.createElement("img", { src: "./src/images/banner3.jpg" })
+                      ),
+                      _react2.default.createElement(
+                        "div",
+                        null,
+                        _react2.default.createElement("img", { src: "./src/images/banner4.jpg" })
+                      )
+                    )
+                  ),
+                  _react2.default.createElement(_pc_news_image_block2.default, {
+                    count: 6,
+                    type: "guoji",
+                    width: "400px",
+                    cartTitle: "\u56FD\u9645\u5934\u6761",
+                    imageWidth: "112px",
+                    newsType: "guoji"
+                  })
                 )
-            );
-        }
-    }]);
+              ),
+              _react2.default.createElement(
+                _col2.default,
+                { span: 9 },
+                _react2.default.createElement(
+                  _tabs2.default,
+                  { className: "tabs_news" },
+                  _react2.default.createElement(
+                    TabPane,
+                    { tab: "\u5934\u6761\u65B0\u95FB", key: "1" },
+                    _react2.default.createElement(_pc_news_block2.default, {
+                      count: 21,
+                      type: "top",
+                      width: "100%",
+                      bordered: "false"
+                    })
+                  ),
+                  _react2.default.createElement(
+                    TabPane,
+                    { tab: "\u56FD\u9645", key: "2" },
+                    _react2.default.createElement(_pc_news_block2.default, {
+                      count: 21,
+                      type: "guoji",
+                      width: "100%",
+                      bordered: "false"
+                    })
+                  ),
+                  _react2.default.createElement(
+                    TabPane,
+                    { tab: "\u79D1\u6280", key: "3" },
+                    _react2.default.createElement(_pc_news_block2.default, {
+                      count: 21,
+                      type: "keji",
+                      width: "100%",
+                      bordered: "false"
+                    })
+                  )
+                )
+              ),
+              _react2.default.createElement(
+                _col2.default,
+                { span: 7 },
+                _react2.default.createElement(
+                  "div",
+                  { className: "rightContainer" },
+                  _react2.default.createElement(_pc_news_image_block2.default, {
+                    count: 2,
+                    type: "guonei",
+                    width: "316px",
+                    cartTitle: "\u56FD\u5185\u70ED\u70B9",
+                    imageWidth: "285px",
+                    newsType: "guonei"
+                  })
+                )
+              )
+            ),
+            _react2.default.createElement(_pc_news_image_block2.default, {
+              count: 8,
+              type: "yule",
+              width: "100%",
+              cartTitle: "\u5A31\u4E50\u65B0\u95FB",
+              imageWidth: "132px",
+              newsType: "yule"
+            }),
+            _react2.default.createElement(_pc_news_image_block2.default, {
+              count: 16,
+              type: "shehui",
+              width: "100%",
+              cartTitle: "\u793E\u4F1A\u65B0\u95FB",
+              imageWidth: "132px",
+              newsType: "shehui"
+            })
+          ),
+          _react2.default.createElement(_col2.default, { span: 2 })
+        )
+      );
+    }
+  }]);
 
-    return PcNewsContainer;
+  return PcNewsContainer;
 }(_react2.default.Component);
 
 exports.default = PcNewsContainer;
@@ -54975,7 +55072,7 @@ module.exports = QueryHandler;
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -54999,66 +55096,66 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var PcNewsBlock = function (_React$Component) {
-	_inherits(PcNewsBlock, _React$Component);
+  _inherits(PcNewsBlock, _React$Component);
 
-	function PcNewsBlock() {
-		_classCallCheck(this, PcNewsBlock);
+  function PcNewsBlock() {
+    _classCallCheck(this, PcNewsBlock);
 
-		var _this = _possibleConstructorReturn(this, (PcNewsBlock.__proto__ || Object.getPrototypeOf(PcNewsBlock)).call(this));
+    var _this = _possibleConstructorReturn(this, (PcNewsBlock.__proto__ || Object.getPrototypeOf(PcNewsBlock)).call(this));
 
-		_this.state = {
-			news: ''
-		};
-		return _this;
-	}
+    _this.state = {
+      news: ""
+    };
+    return _this;
+  }
 
-	_createClass(PcNewsBlock, [{
-		key: 'componentWillMount',
-		value: function componentWillMount() {
-			var _this2 = this;
+  _createClass(PcNewsBlock, [{
+    key: "componentWillMount",
+    value: function componentWillMount() {
+      var _this2 = this;
 
-			var myFetchOptions = {
-				method: 'GET'
-			};
-			fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=getnews&type=" + this.props.type + "&count=" + this.props.count, myFetchOptions).then(function (response) {
-				return response.json();
-			}).then(function (json) {
-				return _this2.setState({ news: json });
-			});
-		}
-	}, {
-		key: 'render',
-		value: function render() {
-			var news = this.state.news;
+      var myFetchOptions = {
+        method: "GET"
+      };
+      fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=getnews&type=" + this.props.type + "&count=" + this.props.count, myFetchOptions).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        return _this2.setState({ news: json });
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var news = this.state.news;
 
-			var newsList = news.length ? news.map(function (newsItem, index) {
-				return _react2.default.createElement(
-					'li',
-					{ key: index },
-					_react2.default.createElement(
-						_reactRouterDom.Link,
-						{ to: '/details/' + newsItem.uniquekey, target: '_blank' },
-						newsItem.title
-					)
-				);
-			}) : '没有加载到任何新闻';
-			return _react2.default.createElement(
-				'div',
-				{ className: 'topNewsList' },
-				_react2.default.createElement(
-					_card2.default,
-					null,
-					_react2.default.createElement(
-						'ul',
-						null,
-						newsList
-					)
-				)
-			);
-		}
-	}]);
+      var newsList = news.length ? news.map(function (newsItem, index) {
+        return _react2.default.createElement(
+          "li",
+          { key: index },
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: "/details/" + newsItem.uniquekey, target: "_blank" },
+            newsItem.title
+          )
+        );
+      }) : "没有加载到任何新闻";
+      return _react2.default.createElement(
+        "div",
+        { className: "topNewsList" },
+        _react2.default.createElement(
+          _card2.default,
+          null,
+          _react2.default.createElement(
+            "ul",
+            null,
+            newsList
+          )
+        )
+      );
+    }
+  }]);
 
-	return PcNewsBlock;
+  return PcNewsBlock;
 }(_react2.default.Component);
 
 exports.default = PcNewsBlock;
@@ -55188,7 +55285,7 @@ function throttleByAnimationFrameDecorator() {
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _carousel = __webpack_require__(244);
@@ -55228,96 +55325,96 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var TabPane = _tabs2.default.TabPane;
 
 var MobileIndex = function (_React$Component) {
-    _inherits(MobileIndex, _React$Component);
+  _inherits(MobileIndex, _React$Component);
 
-    function MobileIndex() {
-        _classCallCheck(this, MobileIndex);
+  function MobileIndex() {
+    _classCallCheck(this, MobileIndex);
 
-        return _possibleConstructorReturn(this, (MobileIndex.__proto__ || Object.getPrototypeOf(MobileIndex)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (MobileIndex.__proto__ || Object.getPrototypeOf(MobileIndex)).apply(this, arguments));
+  }
+
+  _createClass(MobileIndex, [{
+    key: "componentWillMount",
+    value: function componentWillMount() {
+      document.title = "首页 React News | React 驱动的新闻平台";
     }
-
-    _createClass(MobileIndex, [{
-        key: 'componentWillMount',
-        value: function componentWillMount() {
-            document.title = '首页 React News | React 驱动的新闻平台';
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var settings = {
-                dots: true,
-                infinite: true,
-                speed: 500,
-                slidesToShow: 1,
-                autoplay: true
-            };
-            return _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement(_mobile_header2.default, null),
+  }, {
+    key: "render",
+    value: function render() {
+      var settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        autoplay: true
+      };
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(_mobile_header2.default, null),
+        _react2.default.createElement(
+          _tabs2.default,
+          null,
+          _react2.default.createElement(
+            TabPane,
+            { tab: "\u5934\u6761", key: "1" },
+            _react2.default.createElement(
+              "div",
+              { className: "carousel" },
+              _react2.default.createElement(
+                _carousel2.default,
+                settings,
                 _react2.default.createElement(
-                    _tabs2.default,
-                    null,
-                    _react2.default.createElement(
-                        TabPane,
-                        { tab: '\u5934\u6761', key: '1' },
-                        _react2.default.createElement(
-                            'div',
-                            { className: 'carousel' },
-                            _react2.default.createElement(
-                                _carousel2.default,
-                                settings,
-                                _react2.default.createElement(
-                                    'div',
-                                    null,
-                                    _react2.default.createElement('img', { src: './src/images/banner1.jpg' })
-                                ),
-                                _react2.default.createElement(
-                                    'div',
-                                    null,
-                                    _react2.default.createElement('img', { src: './src/images/banner2.jpg' })
-                                ),
-                                _react2.default.createElement(
-                                    'div',
-                                    null,
-                                    _react2.default.createElement('img', { src: './src/images/banner3.jpg' })
-                                ),
-                                _react2.default.createElement(
-                                    'div',
-                                    null,
-                                    _react2.default.createElement('img', { src: './src/images/banner4.jpg' })
-                                )
-                            )
-                        ),
-                        _react2.default.createElement(_mobile_list2.default, { count: 20, type: 'top' })
-                    ),
-                    _react2.default.createElement(
-                        TabPane,
-                        { tab: '\u793E\u4F1A', key: '2' },
-                        _react2.default.createElement(_mobile_list2.default, { count: 20, type: 'shehui' })
-                    ),
-                    _react2.default.createElement(
-                        TabPane,
-                        { tab: '\u56FD\u5185', key: '3' },
-                        _react2.default.createElement(_mobile_list2.default, { count: 20, type: 'guonei' })
-                    ),
-                    _react2.default.createElement(
-                        TabPane,
-                        { tab: '\u56FD\u9645', key: '4' },
-                        _react2.default.createElement(_mobile_list2.default, { count: 20, type: 'guoji' })
-                    ),
-                    _react2.default.createElement(
-                        TabPane,
-                        { tab: '\u5A31\u4E50', key: '5' },
-                        _react2.default.createElement(_mobile_list2.default, { count: 20, type: 'yule' })
-                    )
+                  "div",
+                  null,
+                  _react2.default.createElement("img", { src: "./src/images/banner1.jpg" })
                 ),
-                _react2.default.createElement(_mobile_footer2.default, null)
-            );
-        }
-    }]);
+                _react2.default.createElement(
+                  "div",
+                  null,
+                  _react2.default.createElement("img", { src: "./src/images/banner2.jpg" })
+                ),
+                _react2.default.createElement(
+                  "div",
+                  null,
+                  _react2.default.createElement("img", { src: "./src/images/banner3.jpg" })
+                ),
+                _react2.default.createElement(
+                  "div",
+                  null,
+                  _react2.default.createElement("img", { src: "./src/images/banner4.jpg" })
+                )
+              )
+            ),
+            _react2.default.createElement(_mobile_list2.default, { count: 20, type: "top" })
+          ),
+          _react2.default.createElement(
+            TabPane,
+            { tab: "\u793E\u4F1A", key: "2" },
+            _react2.default.createElement(_mobile_list2.default, { count: 20, type: "shehui" })
+          ),
+          _react2.default.createElement(
+            TabPane,
+            { tab: "\u56FD\u5185", key: "3" },
+            _react2.default.createElement(_mobile_list2.default, { count: 20, type: "guonei" })
+          ),
+          _react2.default.createElement(
+            TabPane,
+            { tab: "\u56FD\u9645", key: "4" },
+            _react2.default.createElement(_mobile_list2.default, { count: 20, type: "guoji" })
+          ),
+          _react2.default.createElement(
+            TabPane,
+            { tab: "\u5A31\u4E50", key: "5" },
+            _react2.default.createElement(_mobile_list2.default, { count: 20, type: "yule" })
+          )
+        ),
+        _react2.default.createElement(_mobile_footer2.default, null)
+      );
+    }
+  }]);
 
-    return MobileIndex;
+  return MobileIndex;
 }(_react2.default.Component);
 
 exports.default = MobileIndex;
@@ -55370,68 +55467,116 @@ var MobileList = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (MobileList.__proto__ || Object.getPrototypeOf(MobileList)).call(this));
 
     _this.state = {
-      news: ''
+      news: "",
+      count: 5,
+      hasMore: 0,
+      initializing: 1,
+      refreshedAt: Date.now()
     };
     return _this;
   }
 
   _createClass(MobileList, [{
-    key: 'componentWillMount',
+    key: "componentWillMount",
     value: function componentWillMount() {
       var _this2 = this;
 
       var myFetchOptions = {
-        method: 'GET'
+        method: "GET"
       };
-      fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=getnews&type=" + this.props.type + "&count=" + this.props.count, myFetchOptions).then(function (response) {
+      fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=getnews&type=" + this.props.type + "&count=" + this.state.count, myFetchOptions).then(function (response) {
         return response.json();
       }).then(function (json) {
         return _this2.setState({ news: json });
       });
     }
   }, {
-    key: 'render',
+    key: "loadMore",
+    value: function loadMore(resolve) {
+      var _this3 = this;
+
+      setTimeout(function () {
+        var count = _this3.state.count;
+        _this3.setState({
+          count: count + 5
+        });
+        var myFetchOptions = {
+          method: "GET"
+        };
+        fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=getnews&type=" + _this3.props.type + "&count=" + _this3.state.count, myFetchOptions).then(function (response) {
+          return response.json();
+        }).then(function (json) {
+          _this3.setState({ news: json });
+        });
+        _this3.setState({
+          hasMore: count > 0 && count < 50
+        });
+        resolve();
+      }, 2e3);
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this4 = this;
+
+      setTimeout(function () {
+        _this4.setState({
+          hasMore: 1,
+          autoLoadMore: 1,
+          initializing: 2
+        });
+      }, 2e3);
+    }
+  }, {
+    key: "render",
     value: function render() {
+      var _state = this.state,
+          hasMore = _state.hasMore,
+          initializing = _state.initializing,
+          refreshedAt = _state.refreshedAt;
       var news = this.state.news;
 
       var newsList = news.length ? news.map(function (newsItem, index) {
         return _react2.default.createElement(
-          'section',
-          { key: index, className: 'm_article list-item special_section clearfix' },
+          "section",
+          {
+            key: index,
+            className: "m_article list-item special_section clearfix"
+          },
           _react2.default.createElement(
             _reactRouterDom.Link,
-            { to: '/details/' + newsItem.uniquekey },
+            { to: "/details/" + newsItem.uniquekey },
             _react2.default.createElement(
-              'div',
-              { className: 'm_article_img' },
-              _react2.default.createElement('img', { src: newsItem.thumbnail_pic_s })
+              "div",
+              { className: "m_article_img" },
+              _react2.default.createElement("img", { src: newsItem.thumbnail_pic_s })
             ),
             _react2.default.createElement(
-              'div',
-              { className: 'm_article_info' },
+              "div",
+              { className: "m_article_info" },
               _react2.default.createElement(
-                'div',
-                { className: 'm_article_title' },
+                "div",
+                { className: "m_article_title" },
                 _react2.default.createElement(
-                  'span',
+                  "span",
                   null,
                   newsItem.title
                 )
               ),
               _react2.default.createElement(
-                'div',
-                { className: 'm_article_desc clearfix' },
+                "div",
+                { className: "m_article_desc clearfix" },
                 _react2.default.createElement(
-                  'div',
-                  { className: 'm_article_desc_l' },
+                  "div",
+                  { className: "m_article_desc_l" },
                   _react2.default.createElement(
-                    'span',
-                    { className: 'm_article_channel' },
+                    "span",
+                    { className: "m_article_channel" },
                     newsItem.realtype
                   ),
                   _react2.default.createElement(
-                    'span',
-                    { className: 'm_article_time' },
+                    "span",
+                    { className: "m_article_time" },
                     newsItem.date
                   )
                 )
@@ -55439,9 +55584,9 @@ var MobileList = function (_React$Component) {
             )
           )
         );
-      }) : '没有加载到任何新闻';
+      }) : "没有加载到任何新闻";
       return _react2.default.createElement(
-        'div',
+        "div",
         null,
         _react2.default.createElement(
           _row2.default,
@@ -55449,7 +55594,16 @@ var MobileList = function (_React$Component) {
           _react2.default.createElement(
             _col2.default,
             { span: 24 },
-            newsList
+            _react2.default.createElement(
+              _reactTouchLoader2.default,
+              {
+                className: "main",
+                onLoadMore: this.loadMore.bind(this),
+                hasMore: hasMore,
+                initializing: initializing
+              },
+              newsList
+            )
           )
         )
       );
@@ -57525,7 +57679,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _backTop = __webpack_require__(251);
@@ -57571,71 +57725,80 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var PcNewsDetails = function (_React$Component) {
-    _inherits(PcNewsDetails, _React$Component);
+  _inherits(PcNewsDetails, _React$Component);
 
-    function PcNewsDetails() {
-        _classCallCheck(this, PcNewsDetails);
+  function PcNewsDetails() {
+    _classCallCheck(this, PcNewsDetails);
 
-        var _this = _possibleConstructorReturn(this, (PcNewsDetails.__proto__ || Object.getPrototypeOf(PcNewsDetails)).call(this));
+    var _this = _possibleConstructorReturn(this, (PcNewsDetails.__proto__ || Object.getPrototypeOf(PcNewsDetails)).call(this));
 
-        _this.state = {
-            newsItem: ''
-        };
-        return _this;
+    _this.state = {
+      newsItem: ""
+    };
+    return _this;
+  }
+
+  _createClass(PcNewsDetails, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      var getOptions = {
+        method: "GET"
+      };
+      fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=getnewsitem&uniquekey=" + this.props.match.params.uniquekey, getOptions).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        _this2.setState({ newsItem: json });
+        document.title = _this2.state.newsItem.title + " - React News | React 驱动的新闻平台";
+      });
     }
+  }, {
+    key: "createMakeUp",
+    value: function createMakeUp() {
+      return { __html: this.state.newsItem.pagecontent };
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(_pc_header2.default, null),
+        _react2.default.createElement(
+          _row2.default,
+          null,
+          _react2.default.createElement(_col2.default, { span: 2 }),
+          _react2.default.createElement(
+            _col2.default,
+            { span: 14, className: "container" },
+            _react2.default.createElement("div", {
+              className: "articleContainer",
+              dangerouslySetInnerHTML: this.createMakeUp()
+            }),
+            _react2.default.createElement("hr", null),
+            _react2.default.createElement(_common_comments2.default, { uniquekey: this.props.match.params.uniquekey })
+          ),
+          _react2.default.createElement(
+            _col2.default,
+            { span: 6 },
+            _react2.default.createElement(_pc_news_image_block2.default, {
+              count: 40,
+              type: "yule",
+              width: "100%",
+              cardTitle: "\u76F8\u5173\u65B0\u95FB",
+              imageWidth: "150px"
+            })
+          ),
+          _react2.default.createElement(_col2.default, { span: 2 })
+        ),
+        _react2.default.createElement(_pc_footer2.default, null),
+        _react2.default.createElement(_backTop2.default, null)
+      );
+    }
+  }]);
 
-    _createClass(PcNewsDetails, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            var _this2 = this;
-
-            var getOptions = {
-                method: "GET"
-            };
-            fetch('http://newsapi.gugujiankong.com/Handler.ashx?action=getnewsitem&uniquekey=' + this.props.match.params.uniquekey, getOptions).then(function (response) {
-                return response.json();
-            }).then(function (json) {
-                _this2.setState({ newsItem: json });
-                document.title = _this2.state.newsItem.title + " - React News | React 驱动的新闻平台";
-            });
-        }
-    }, {
-        key: 'createMakeUp',
-        value: function createMakeUp() {
-            return { __html: this.state.newsItem.pagecontent };
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement(_pc_header2.default, null),
-                _react2.default.createElement(
-                    _row2.default,
-                    null,
-                    _react2.default.createElement(_col2.default, { span: 2 }),
-                    _react2.default.createElement(
-                        _col2.default,
-                        { span: 14, className: 'container' },
-                        _react2.default.createElement('div', { className: 'articleContainer', dangerouslySetInnerHTML: this.createMakeUp() }),
-                        _react2.default.createElement('hr', null),
-                        _react2.default.createElement(_common_comments2.default, { uniquekey: this.props.match.params.uniquekey })
-                    ),
-                    _react2.default.createElement(
-                        _col2.default,
-                        { span: 6 },
-                        _react2.default.createElement(_pc_news_image_block2.default, { count: 40, type: "yule", width: '100%', cardTitle: '\u76F8\u5173\u65B0\u95FB', imageWidth: '150px' })
-                    ),
-                    _react2.default.createElement(_col2.default, { span: 2 })
-                ),
-                _react2.default.createElement(_pc_footer2.default, null),
-                _react2.default.createElement(_backTop2.default, null)
-            );
-        }
-    }]);
-
-    return PcNewsDetails;
+  return PcNewsDetails;
 }(_react2.default.Component);
 
 exports.default = PcNewsDetails;
@@ -57856,7 +58019,7 @@ module.exports = exports['default'];
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _backTop = __webpack_require__(251);
@@ -57898,64 +58061,67 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var MobileNewsDetails = function (_React$Component) {
-    _inherits(MobileNewsDetails, _React$Component);
+  _inherits(MobileNewsDetails, _React$Component);
 
-    function MobileNewsDetails() {
-        _classCallCheck(this, MobileNewsDetails);
+  function MobileNewsDetails() {
+    _classCallCheck(this, MobileNewsDetails);
 
-        var _this = _possibleConstructorReturn(this, (MobileNewsDetails.__proto__ || Object.getPrototypeOf(MobileNewsDetails)).call(this));
+    var _this = _possibleConstructorReturn(this, (MobileNewsDetails.__proto__ || Object.getPrototypeOf(MobileNewsDetails)).call(this));
 
-        _this.state = {
-            newsItem: ''
-        };
-        return _this;
+    _this.state = {
+      newsItem: ""
+    };
+    return _this;
+  }
+
+  _createClass(MobileNewsDetails, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      var getOptions = {
+        method: "GET"
+      };
+      fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=getnewsitem&uniquekey=" + this.props.match.params.uniquekey, getOptions).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        _this2.setState({ newsItem: json });
+        document.title = "个人中心 - React News | React 驱动的新闻平台";
+      });
     }
+  }, {
+    key: "createMakeUp",
+    value: function createMakeUp() {
+      return { __html: this.state.newsItem.pagecontent };
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        { id: "mobileDetailesContainer" },
+        _react2.default.createElement(_mobile_header2.default, null),
+        _react2.default.createElement(
+          _row2.default,
+          null,
+          _react2.default.createElement(
+            _col2.default,
+            { span: 24, className: "container" },
+            _react2.default.createElement("div", {
+              className: "articleContainer",
+              dangerouslySetInnerHTML: this.createMakeUp()
+            }),
+            _react2.default.createElement("hr", null),
+            _react2.default.createElement(_common_comments2.default, { uniquekey: this.props.match.params.uniquekey })
+          )
+        ),
+        _react2.default.createElement(_mobile_footer2.default, null),
+        _react2.default.createElement(_backTop2.default, null)
+      );
+    }
+  }]);
 
-    _createClass(MobileNewsDetails, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            var _this2 = this;
-
-            var getOptions = {
-                method: "GET"
-            };
-            fetch('http://newsapi.gugujiankong.com/Handler.ashx?action=getnewsitem&uniquekey=' + this.props.match.params.uniquekey, getOptions).then(function (response) {
-                return response.json();
-            }).then(function (json) {
-                _this2.setState({ newsItem: json });
-                document.title = "个人中心 - React News | React 驱动的新闻平台";
-            });
-        }
-    }, {
-        key: 'createMakeUp',
-        value: function createMakeUp() {
-            return { __html: this.state.newsItem.pagecontent };
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                'div',
-                { id: 'mobileDetailesContainer' },
-                _react2.default.createElement(_mobile_header2.default, null),
-                _react2.default.createElement(
-                    _row2.default,
-                    null,
-                    _react2.default.createElement(
-                        _col2.default,
-                        { span: 24, className: 'container' },
-                        _react2.default.createElement('div', { className: 'articleContainer', dangerouslySetInnerHTML: this.createMakeUp() }),
-                        _react2.default.createElement('hr', null),
-                        _react2.default.createElement(_common_comments2.default, { uniquekey: this.props.match.params.uniquekey })
-                    )
-                ),
-                _react2.default.createElement(_mobile_footer2.default, null),
-                _react2.default.createElement(_backTop2.default, null)
-            );
-        }
-    }]);
-
-    return MobileNewsDetails;
+  return MobileNewsDetails;
 }(_react2.default.Component);
 
 exports.default = MobileNewsDetails;
@@ -57968,7 +58134,7 @@ exports.default = MobileNewsDetails;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _modal = __webpack_require__(70);
@@ -58031,191 +58197,202 @@ var FormItem = _form2.default.Item;
 var TabPane = _tabs2.default.TabPane;
 
 var PcUserCenter = function (_React$Component) {
-    _inherits(PcUserCenter, _React$Component);
+  _inherits(PcUserCenter, _React$Component);
 
-    function PcUserCenter() {
-        _classCallCheck(this, PcUserCenter);
+  function PcUserCenter() {
+    _classCallCheck(this, PcUserCenter);
 
-        var _this = _possibleConstructorReturn(this, (PcUserCenter.__proto__ || Object.getPrototypeOf(PcUserCenter)).call(this));
+    var _this = _possibleConstructorReturn(this, (PcUserCenter.__proto__ || Object.getPrototypeOf(PcUserCenter)).call(this));
 
-        _this.state = {
-            usercomment: '',
-            usercollection: '',
-            previewImage: '',
-            previewVisible: false
-        };
-        return _this;
+    _this.state = {
+      usercomment: "",
+      usercollection: "",
+      previewImage: "",
+      previewVisible: false
+    };
+    return _this;
+  }
+
+  _createClass(PcUserCenter, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      var myOptons = {
+        method: "GET"
+      };
+      fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=getuc&userid=" + localStorage.userid, myOptons).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        _this2.setState({ usercollection: json });
+        document.title = "个人中心 - React News | React 驱动的新闻平台";
+      });
+
+      fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=getusercomments&userid=" + localStorage.userid, myOptons).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        _this2.setState({ usercomment: json });
+      });
     }
+  }, {
+    key: "handleCancel",
+    value: function handleCancel() {
+      this.setState({ previewVisible: false });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this3 = this;
 
-    _createClass(PcUserCenter, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            var _this2 = this;
-
-            var myOptons = {
-                method: 'GET'
-            };
-            fetch('http://newsapi.gugujiankong.com/Handler.ashx?action=getuc&userid=' + localStorage.userid, myOptons).then(function (response) {
-                return response.json();
-            }).then(function (json) {
-                _this2.setState({ usercollection: json });
-                document.title = '个人中心 - React News | React 驱动的新闻平台';
-            });
-
-            fetch('http://newsapi.gugujiankong.com/Handler.ashx?action=getusercomments&userid=' + localStorage.userid, myOptons).then(function (response) {
-                return response.json();
-            }).then(function (json) {
-                _this2.setState({ usercomment: json });
-            });
+      var props = {
+        action: "http://newsapi.gugujiankong.com/handler.ashx",
+        headers: {
+          "Access-Control-Allow-Origin": "*"
+        },
+        listType: "picture-card",
+        defaultFileList: [{
+          uid: -1,
+          name: "xxx.png",
+          sate: "done",
+          url: "https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png",
+          thumbUrl: "https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png"
+        }],
+        onPreview: function onPreview(file) {
+          _this3.setState({ previewImage: file.url, previewVisible: true });
         }
-    }, {
-        key: 'handleCancel',
-        value: function handleCancel() {
-            this.setState({ previewVisible: false });
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var _this3 = this;
+      };
+      var _state = this.state,
+          usercollection = _state.usercollection,
+          usercomment = _state.usercomment;
 
-            var props = {
-                action: 'http://newsapi.gugujiankong.com/handler.ashx',
-                headers: {
-                    "Access-Control-Allow-Origin": '*'
-                },
-                listType: 'picture-card',
-                defaultFileList: [{
-                    uid: -1,
-                    name: 'xxx.png',
-                    sate: 'done',
-                    url: 'https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png',
-                    thumbUrl: 'https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png'
-                }],
-                onPreview: function onPreview(file) {
-                    _this3.setState({ previewImage: file.url, previewVisible: true });
-                }
-            };
-            var _state = this.state,
-                usercollection = _state.usercollection,
-                usercomment = _state.usercomment;
+      var usercollectionList = usercollection.length ? usercollection.map(function (uc, index) {
+        return _react2.default.createElement(
+          _card2.default,
+          {
+            key: index,
+            title: uc.uniquekey,
+            extra: _react2.default.createElement(
+              "a",
+              { target: "_blank", href: "/#/details/" + uc.uniquekey },
+              "\u67E5\u770B"
+            )
+          },
+          _react2.default.createElement(
+            "p",
+            null,
+            " ",
+            uc.Title,
+            " "
+          )
+        );
+      }) : "还没有发现收藏的文章,快去收藏吧~";
 
-            var usercollectionList = usercollection.length ? usercollection.map(function (uc, index) {
-                return _react2.default.createElement(
-                    _card2.default,
-                    { key: index, title: uc.uniquekey, extra: _react2.default.createElement(
-                            'a',
-                            { target: '_blank', href: '/#/details/' + uc.uniquekey },
-                            '\u67E5\u770B'
-                        ) },
-                    _react2.default.createElement(
-                        'p',
-                        null,
-                        ' ',
-                        uc.Title,
-                        ' '
-                    )
-                );
-            }) : "还没有发现收藏的文章,快去收藏吧~";
-
-            var usercommentList = usercomment.length ? usercomment.map(function (comment, index) {
-                return _react2.default.createElement(
-                    _card2.default,
-                    { key: index, title: '\u4E8E' + comment.datetime + '\u53D1\u8868\u4E0E' + comment.uniquekey, extra: _react2.default.createElement(
-                            'a',
-                            { target: '_blank', href: '/#/details/' + comment.uniquekey },
-                            '\u67E5\u770B'
-                        ) },
-                    _react2.default.createElement(
-                        'p',
-                        null,
-                        ' ',
-                        comment.Comments,
-                        ' '
-                    )
-                );
-            }) : "您还没有发表过任何评论,快去发表吧~";
-            return _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement(_pc_header2.default, null),
+      var usercommentList = usercomment.length ? usercomment.map(function (comment, index) {
+        return _react2.default.createElement(
+          _card2.default,
+          {
+            key: index,
+            title: "\u4E8E" + comment.datetime + "\u53D1\u8868\u4E0E" + comment.uniquekey,
+            extra: _react2.default.createElement(
+              "a",
+              { target: "_blank", href: "/#/details/" + comment.uniquekey },
+              "\u67E5\u770B"
+            )
+          },
+          _react2.default.createElement(
+            "p",
+            null,
+            " ",
+            comment.Comments,
+            " "
+          )
+        );
+      }) : "您还没有发表过任何评论,快去发表吧~";
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(_pc_header2.default, null),
+        _react2.default.createElement(
+          _row2.default,
+          null,
+          _react2.default.createElement(_col2.default, { span: 2 }),
+          _react2.default.createElement(
+            _col2.default,
+            { span: 20 },
+            _react2.default.createElement(
+              _tabs2.default,
+              null,
+              _react2.default.createElement(
+                TabPane,
+                { tab: "\u6211\u7684\u6536\u85CF\u5217\u8868", key: "1" },
                 _react2.default.createElement(
+                  "div",
+                  { className: "comment" },
+                  _react2.default.createElement(
                     _row2.default,
                     null,
-                    _react2.default.createElement(_col2.default, { span: 2 }),
                     _react2.default.createElement(
-                        _col2.default,
-                        { span: 20 },
-                        _react2.default.createElement(
-                            _tabs2.default,
-                            null,
-                            _react2.default.createElement(
-                                TabPane,
-                                { tab: '\u6211\u7684\u6536\u85CF\u5217\u8868', key: '1' },
-                                _react2.default.createElement(
-                                    'div',
-                                    { className: 'comment' },
-                                    _react2.default.createElement(
-                                        _row2.default,
-                                        null,
-                                        _react2.default.createElement(
-                                            _col2.default,
-                                            { span: 24 },
-                                            usercollectionList
-                                        )
-                                    )
-                                )
-                            ),
-                            _react2.default.createElement(
-                                TabPane,
-                                { tab: '\u6211\u7684\u8BC4\u8BBA\u5217\u8868', key: '2' },
-                                _react2.default.createElement(
-                                    'div',
-                                    { className: 'comment' },
-                                    _react2.default.createElement(
-                                        _row2.default,
-                                        null,
-                                        _react2.default.createElement(
-                                            _col2.default,
-                                            { span: 24 },
-                                            usercommentList
-                                        )
-                                    )
-                                )
-                            ),
-                            _react2.default.createElement(
-                                TabPane,
-                                { tab: '\u5934\u50CF\u8BBE\u7F6E', key: '3' },
-                                _react2.default.createElement(
-                                    'div',
-                                    { className: 'clearfix' },
-                                    _react2.default.createElement(
-                                        _upload2.default,
-                                        props,
-                                        _react2.default.createElement(_icon2.default, { type: 'plus' }),
-                                        _react2.default.createElement(
-                                            'div',
-                                            { className: 'ant-upload-text' },
-                                            '\u4E0A\u4F20\u7167\u7247'
-                                        )
-                                    ),
-                                    _react2.default.createElement(
-                                        _modal2.default,
-                                        { visible: this.state.previewVisible, footer: null,
-                                            onCancel: this.handleCancel.bind(this) },
-                                        _react2.default.createElement('img', { src: this.state.previewImage })
-                                    )
-                                )
-                            )
-                        )
-                    ),
-                    _react2.default.createElement(_col2.default, { span: 2 })
-                ),
-                _react2.default.createElement(_pc_footer2.default, null)
-            );
-        }
-    }]);
+                      _col2.default,
+                      { span: 24 },
+                      usercollectionList
+                    )
+                  )
+                )
+              ),
+              _react2.default.createElement(
+                TabPane,
+                { tab: "\u6211\u7684\u8BC4\u8BBA\u5217\u8868", key: "2" },
+                _react2.default.createElement(
+                  "div",
+                  { className: "comment" },
+                  _react2.default.createElement(
+                    _row2.default,
+                    null,
+                    _react2.default.createElement(
+                      _col2.default,
+                      { span: 24 },
+                      usercommentList
+                    )
+                  )
+                )
+              ),
+              _react2.default.createElement(
+                TabPane,
+                { tab: "\u5934\u50CF\u8BBE\u7F6E", key: "3" },
+                _react2.default.createElement(
+                  "div",
+                  { className: "clearfix" },
+                  _react2.default.createElement(
+                    _upload2.default,
+                    props,
+                    _react2.default.createElement(_icon2.default, { type: "plus" }),
+                    _react2.default.createElement(
+                      "div",
+                      { className: "ant-upload-text" },
+                      "\u4E0A\u4F20\u7167\u7247"
+                    )
+                  ),
+                  _react2.default.createElement(
+                    _modal2.default,
+                    {
+                      visible: this.state.previewVisible,
+                      footer: null,
+                      onCancel: this.handleCancel.bind(this)
+                    },
+                    _react2.default.createElement("img", { src: this.state.previewImage })
+                  )
+                )
+              )
+            )
+          ),
+          _react2.default.createElement(_col2.default, { span: 2 })
+        ),
+        _react2.default.createElement(_pc_footer2.default, null)
+      );
+    }
+  }]);
 
-    return PcUserCenter;
+  return PcUserCenter;
 }(_react2.default.Component);
 
 exports.default = PcUserCenter;
@@ -60208,7 +60385,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _modal = __webpack_require__(70);
@@ -60269,181 +60446,192 @@ var FormItem = _form2.default.Item;
 var TabPane = _tabs2.default.TabPane;
 
 var PcUserCenter = function (_React$Component) {
-    _inherits(PcUserCenter, _React$Component);
+  _inherits(PcUserCenter, _React$Component);
 
-    function PcUserCenter() {
-        _classCallCheck(this, PcUserCenter);
+  function PcUserCenter() {
+    _classCallCheck(this, PcUserCenter);
 
-        var _this = _possibleConstructorReturn(this, (PcUserCenter.__proto__ || Object.getPrototypeOf(PcUserCenter)).call(this));
+    var _this = _possibleConstructorReturn(this, (PcUserCenter.__proto__ || Object.getPrototypeOf(PcUserCenter)).call(this));
 
-        _this.state = {
-            usercomment: '',
-            usercollection: '',
-            previewImage: '',
-            previewVisible: false
-        };
-        return _this;
+    _this.state = {
+      usercomment: "",
+      usercollection: "",
+      previewImage: "",
+      previewVisible: false
+    };
+    return _this;
+  }
+
+  _createClass(PcUserCenter, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      var myOptons = {
+        method: "GET"
+      };
+      fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=getuc&userid=" + localStorage.userid, myOptons).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        _this2.setState({ usercollection: json });
+        document.title = "个人中心 - React News | React 驱动的新闻平台";
+      });
+
+      fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=getusercomments&userid=" + localStorage.userid, myOptons).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        _this2.setState({ usercomment: json });
+      });
     }
+  }, {
+    key: "handleCancel",
+    value: function handleCancel() {
+      this.setState({ previewVisible: false });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this3 = this;
 
-    _createClass(PcUserCenter, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            var _this2 = this;
-
-            var myOptons = {
-                method: 'GET'
-            };
-            fetch('http://newsapi.gugujiankong.com/Handler.ashx?action=getuc&userid=' + localStorage.userid, myOptons).then(function (response) {
-                return response.json();
-            }).then(function (json) {
-                _this2.setState({ usercollection: json });
-                document.title = '个人中心 - React News | React 驱动的新闻平台';
-            });
-
-            fetch('http://newsapi.gugujiankong.com/Handler.ashx?action=getusercomments&userid=' + localStorage.userid, myOptons).then(function (response) {
-                return response.json();
-            }).then(function (json) {
-                _this2.setState({ usercomment: json });
-            });
+      var props = {
+        action: "http://newsapi.gugujiankong.com/handler.ashx",
+        headers: {
+          "Access-Control-Allow-Origin": "*"
+        },
+        listType: "picture-card",
+        defaultFileList: [{
+          uid: -1,
+          name: "xxx.png",
+          sate: "done",
+          url: "https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png",
+          thumbUrl: "https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png"
+        }],
+        onPreview: function onPreview(file) {
+          _this3.setState({ previewImage: file.url, previewVisible: true });
         }
-    }, {
-        key: 'handleCancel',
-        value: function handleCancel() {
-            this.setState({ previewVisible: false });
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var _this3 = this;
+      };
+      var _state = this.state,
+          usercollection = _state.usercollection,
+          usercomment = _state.usercomment;
 
-            var props = {
-                action: 'http://newsapi.gugujiankong.com/handler.ashx',
-                headers: {
-                    "Access-Control-Allow-Origin": '*'
-                },
-                listType: 'picture-card',
-                defaultFileList: [{
-                    uid: -1,
-                    name: 'xxx.png',
-                    sate: 'done',
-                    url: 'https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png',
-                    thumbUrl: 'https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png'
-                }],
-                onPreview: function onPreview(file) {
-                    _this3.setState({ previewImage: file.url, previewVisible: true });
-                }
-            };
-            var _state = this.state,
-                usercollection = _state.usercollection,
-                usercomment = _state.usercomment;
+      var usercollectionList = usercollection.length ? usercollection.map(function (uc, index) {
+        return _react2.default.createElement(
+          _card2.default,
+          {
+            key: index,
+            title: uc.uniquekey,
+            extra: _react2.default.createElement(
+              "a",
+              { href: "/#/details/" + uc.uniquekey },
+              "\u67E5\u770B"
+            )
+          },
+          _react2.default.createElement(
+            "p",
+            null,
+            " ",
+            uc.Title,
+            " "
+          )
+        );
+      }) : "还没有发现收藏的文章,快去收藏吧~";
 
-            var usercollectionList = usercollection.length ? usercollection.map(function (uc, index) {
-                return _react2.default.createElement(
-                    _card2.default,
-                    { key: index, title: uc.uniquekey, extra: _react2.default.createElement(
-                            'a',
-                            { href: '/#/details/' + uc.uniquekey },
-                            '\u67E5\u770B'
-                        ) },
-                    _react2.default.createElement(
-                        'p',
-                        null,
-                        ' ',
-                        uc.Title,
-                        ' '
-                    )
-                );
-            }) : "还没有发现收藏的文章,快去收藏吧~";
-
-            var usercommentList = usercomment.length ? usercomment.map(function (comment, index) {
-                return _react2.default.createElement(
-                    _card2.default,
-                    { key: index, title: '\u4E8E' + comment.datetime + '\u53D1\u8868\u7684\u8BC4\u8BBA', extra: _react2.default.createElement(
-                            'a',
-                            { href: '/#/details/' + comment.uniquekey },
-                            '\u67E5\u770B'
-                        ) },
-                    _react2.default.createElement(
-                        'p',
-                        null,
-                        ' ',
-                        comment.Comments,
-                        ' '
-                    )
-                );
-            }) : "您还没有发表过任何评论,快去发表吧~";
-            return _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement(_Mobile_header2.default, null),
+      var usercommentList = usercomment.length ? usercomment.map(function (comment, index) {
+        return _react2.default.createElement(
+          _card2.default,
+          {
+            key: index,
+            title: "\u4E8E" + comment.datetime + "\u53D1\u8868\u7684\u8BC4\u8BBA",
+            extra: _react2.default.createElement(
+              "a",
+              { href: "/#/details/" + comment.uniquekey },
+              "\u67E5\u770B"
+            )
+          },
+          _react2.default.createElement(
+            "p",
+            null,
+            " ",
+            comment.Comments,
+            " "
+          )
+        );
+      }) : "您还没有发表过任何评论,快去发表吧~";
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(_Mobile_header2.default, null),
+        _react2.default.createElement(
+          _row2.default,
+          null,
+          _react2.default.createElement(
+            _col2.default,
+            { span: 24 },
+            _react2.default.createElement(
+              _tabs2.default,
+              null,
+              _react2.default.createElement(
+                TabPane,
+                { tab: "\u6211\u7684\u6536\u85CF\u5217\u8868", key: "1" },
                 _react2.default.createElement(
-                    _row2.default,
-                    null,
+                  _row2.default,
+                  null,
+                  _react2.default.createElement(
+                    _col2.default,
+                    { span: 24 },
+                    usercollectionList
+                  )
+                )
+              ),
+              _react2.default.createElement(
+                TabPane,
+                { tab: "\u6211\u7684\u8BC4\u8BBA\u5217\u8868", key: "2" },
+                _react2.default.createElement(
+                  _row2.default,
+                  null,
+                  _react2.default.createElement(
+                    _col2.default,
+                    { span: 24 },
+                    usercommentList
+                  )
+                )
+              ),
+              _react2.default.createElement(
+                TabPane,
+                { tab: "\u5934\u50CF\u8BBE\u7F6E", key: "3" },
+                _react2.default.createElement(
+                  "div",
+                  { className: "clearfix" },
+                  _react2.default.createElement(
+                    _upload2.default,
+                    props,
+                    _react2.default.createElement(_icon2.default, { type: "plus" }),
                     _react2.default.createElement(
-                        _col2.default,
-                        { span: 24 },
-                        _react2.default.createElement(
-                            _tabs2.default,
-                            null,
-                            _react2.default.createElement(
-                                TabPane,
-                                { tab: '\u6211\u7684\u6536\u85CF\u5217\u8868', key: '1' },
-                                _react2.default.createElement(
-                                    _row2.default,
-                                    null,
-                                    _react2.default.createElement(
-                                        _col2.default,
-                                        { span: 24 },
-                                        usercollectionList
-                                    )
-                                )
-                            ),
-                            _react2.default.createElement(
-                                TabPane,
-                                { tab: '\u6211\u7684\u8BC4\u8BBA\u5217\u8868', key: '2' },
-                                _react2.default.createElement(
-                                    _row2.default,
-                                    null,
-                                    _react2.default.createElement(
-                                        _col2.default,
-                                        { span: 24 },
-                                        usercommentList
-                                    )
-                                )
-                            ),
-                            _react2.default.createElement(
-                                TabPane,
-                                { tab: '\u5934\u50CF\u8BBE\u7F6E', key: '3' },
-                                _react2.default.createElement(
-                                    'div',
-                                    { className: 'clearfix' },
-                                    _react2.default.createElement(
-                                        _upload2.default,
-                                        props,
-                                        _react2.default.createElement(_icon2.default, { type: 'plus' }),
-                                        _react2.default.createElement(
-                                            'div',
-                                            { className: 'ant-upload-text' },
-                                            '\u4E0A\u4F20\u7167\u7247'
-                                        )
-                                    ),
-                                    _react2.default.createElement(
-                                        _modal2.default,
-                                        { visible: this.state.previewVisible, footer: null,
-                                            onCancel: this.handleCancel.bind(this) },
-                                        _react2.default.createElement('img', { src: this.state.previewImage })
-                                    )
-                                )
-                            )
-                        )
+                      "div",
+                      { className: "ant-upload-text" },
+                      "\u4E0A\u4F20\u7167\u7247"
                     )
-                ),
-                _react2.default.createElement(_Mobile_footer2.default, null)
-            );
-        }
-    }]);
+                  ),
+                  _react2.default.createElement(
+                    _modal2.default,
+                    {
+                      visible: this.state.previewVisible,
+                      footer: null,
+                      onCancel: this.handleCancel.bind(this)
+                    },
+                    _react2.default.createElement("img", { src: this.state.previewImage })
+                  )
+                )
+              )
+            )
+          )
+        ),
+        _react2.default.createElement(_Mobile_footer2.default, null)
+      );
+    }
+  }]);
 
-    return PcUserCenter;
+  return PcUserCenter;
 }(_react2.default.Component);
 
 exports.default = PcUserCenter;
@@ -60456,7 +60644,7 @@ exports.default = PcUserCenter;
 
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 var _modal = __webpack_require__(70);
@@ -60513,299 +60701,315 @@ var SubMenu = _menu2.default.SubMenu;
 var MenuItemGroup = _menu2.default.ItemGroup;
 
 var PCHeader = function (_React$Component) {
-	_inherits(PCHeader, _React$Component);
+  _inherits(PCHeader, _React$Component);
 
-	function PCHeader() {
-		_classCallCheck(this, PCHeader);
+  function PCHeader() {
+    _classCallCheck(this, PCHeader);
 
-		var _this = _possibleConstructorReturn(this, (PCHeader.__proto__ || Object.getPrototypeOf(PCHeader)).call(this));
+    var _this = _possibleConstructorReturn(this, (PCHeader.__proto__ || Object.getPrototypeOf(PCHeader)).call(this));
 
-		_this.state = {
-			confirmDirty: false,
-			current: '',
-			modalVisible: false,
-			action: 'login',
-			hasLogined: false,
-			userNickName: '',
-			userid: 0
-		};
-		return _this;
-	}
+    _this.state = {
+      confirmDirty: false,
+      current: "",
+      modalVisible: false,
+      action: "login",
+      hasLogined: false,
+      userNickName: "",
+      userid: 0
+    };
+    return _this;
+  }
 
-	_createClass(PCHeader, [{
-		key: 'componentWillMount',
-		value: function componentWillMount() {
-			if (localStorage.userid != '') {
-				this.setState({ hasLogined: true });
-				this.setState({ userNickName: localStorage.userNickName, userid: localStorage.userid });
-			};
-		}
-	}, {
-		key: 'setModalVisible',
-		value: function setModalVisible(value) {
-			this.setState({ modalVisible: value });
-		}
-	}, {
-		key: 'handleClick',
-		value: function handleClick(e) {
-			if (e.key == "register") {
-				this.setState({ current: 'register' });
-				this.setModalVisible(true);
-			} else {
-				{
-					this.setState({ current: e.key });
-				}
-			}
-		}
-	}, {
-		key: 'getDate',
-		value: function getDate(e) {
-			var _this2 = this;
+  _createClass(PCHeader, [{
+    key: "componentWillMount",
+    value: function componentWillMount() {
+      if (localStorage.userid != "") {
+        this.setState({ hasLogined: true });
+        this.setState({
+          userNickName: localStorage.userNickName,
+          userid: localStorage.userid
+        });
+      }
+    }
+  }, {
+    key: "setModalVisible",
+    value: function setModalVisible(value) {
+      this.setState({ modalVisible: value });
+    }
+  }, {
+    key: "handleClick",
+    value: function handleClick(e) {
+      if (e.key == "register") {
+        this.setState({ current: "register" });
+        this.setModalVisible(true);
+      } else {
+        {
+          this.setState({ current: e.key });
+        }
+      }
+    }
+  }, {
+    key: "getDate",
+    value: function getDate(e) {
+      var _this2 = this;
 
-			var myFetchOptions = {
-				method: 'GET'
-			};
-			var formData = this.props.form.getFieldsValue();
-			fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=" + this.state.action + "&username=" + formData.userName + "&password=" + formData.password + "&r_userName=" + formData.r_userName + "&r_password=" + formData.r_password + "&r_confirmPassword=" + formData.r_confirmPassword, myFetchOptions).then(function (response) {
-				return response.json();
-			}).then(function (json) {
-				_this2.setState({ userNickName: json.NickUserName, userid: json.UserId });
-				localStorage.userid = json.UserId;
-				localStorage.userNickName = json.NickUserName;
-			});
-			if (this.state.action == "login") {
-				this.setState({ hasLogined: true });
-			}
-			_message2.default.success("请求成功！");
-			this.setModalVisible(false);
-		}
-	}, {
-		key: 'handleSubmitLogin',
-		value: function handleSubmitLogin(e) {
-			var _this3 = this;
+      var myFetchOptions = {
+        method: "GET"
+      };
+      var formData = this.props.form.getFieldsValue();
+      fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=" + this.state.action + "&username=" + formData.userName + "&password=" + formData.password + "&r_userName=" + formData.r_userName + "&r_password=" + formData.r_password + "&r_confirmPassword=" + formData.r_confirmPassword, myFetchOptions).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        _this2.setState({ userNickName: json.NickUserName, userid: json.UserId });
+        localStorage.userid = json.UserId;
+        localStorage.userNickName = json.NickUserName;
+      });
+      if (this.state.action == "login") {
+        this.setState({ hasLogined: true });
+      }
+      _message2.default.success("请求成功！");
+      this.setModalVisible(false);
+    }
+  }, {
+    key: "handleSubmitLogin",
+    value: function handleSubmitLogin(e) {
+      var _this3 = this;
 
-			e.preventDefault();
-			this.props.form.validateFields(["userName", "password"], function (err, values) {
-				if (err) {
-					_message2.default.error("登录失败");
-				} else {
-					_this3.getDate(e);
-				}
-			});
-		}
-	}, {
-		key: 'handleSubmitReguster',
-		value: function handleSubmitReguster(e) {
-			var _this4 = this;
+      e.preventDefault();
+      this.props.form.validateFields(["userName", "password"], function (err, values) {
+        if (err) {
+          _message2.default.error("登录失败");
+        } else {
+          _this3.getDate(e);
+        }
+      });
+    }
+  }, {
+    key: "handleSubmitReguster",
+    value: function handleSubmitReguster(e) {
+      var _this4 = this;
 
-			e.preventDefault();
-			this.props.form.validateFields(["r_userName", "r_password", "r_confirmPassword"], function (err, values) {
-				console.log(err);
-				if (err) {
-					_message2.default.error("注册失败");
-				} else {
-					_this4.getDate(e);
-				}
-			});
-		}
-	}, {
-		key: 'callback',
-		value: function callback(key) {
-			if (key == 1) {
-				this.setState({ action: 'login' });
-			} else if (key == 2) {
-				this.setState({ action: 'register' });
-			}
-		}
-	}, {
-		key: 'logout',
-		value: function logout() {
-			localStorage.userid = '';
-			localStorage.userNickName = '';
-			this.setState({ hasLogined: false, userNickName: '', userid: '' });
-			window.location.href = '/';
-		}
-	}, {
-		key: 'login',
-		value: function login() {
-			this.setModalVisible(true);
-		}
-	}, {
-		key: 'handleConfirmBlur',
-		value: function handleConfirmBlur(e) {
-			var value = e.target.value;
-			this.setState({ confirmDirty: this.state.confirmDirty || !!value });
-		}
-	}, {
-		key: 'checkPassword',
-		value: function checkPassword(rule, value, callback) {
-			var form = this.props.form;
-			if (value && value !== form.getFieldValue('r_password')) {
-				callback('两次输入不一致');
-			} else if (!value) {
-				callback('请填写值');
-			} else {
-				callback();
-			}
-		}
-	}, {
-		key: 'checkConfirm',
-		value: function checkConfirm(rule, value, callback) {
-			var form = this.props.form;
-			var re = /^\w{4,18}$/;
-			if (!value || !re.test(value)) {
-				callback('密码格式错误');
-			} else if (value && this.state.confirmDirty) {
-				form.validateFields(['r_confirmPassword'], { force: true });
-			}
-			callback();
-		}
-	}, {
-		key: 'render',
-		value: function render() {
-			var _this5 = this;
+      e.preventDefault();
+      this.props.form.validateFields(["r_userName", "r_password", "r_confirmPassword"], function (err, values) {
+        console.log(err);
+        if (err) {
+          _message2.default.error("注册失败");
+        } else {
+          _this4.getDate(e);
+        }
+      });
+    }
+  }, {
+    key: "callback",
+    value: function callback(key) {
+      if (key == 1) {
+        this.setState({ action: "login" });
+      } else if (key == 2) {
+        this.setState({ action: "register" });
+      }
+    }
+  }, {
+    key: "logout",
+    value: function logout() {
+      localStorage.userid = "";
+      localStorage.userNickName = "";
+      this.setState({ hasLogined: false, userNickName: "", userid: "" });
+      window.location.href = "/";
+    }
+  }, {
+    key: "login",
+    value: function login() {
+      this.setModalVisible(true);
+    }
+  }, {
+    key: "handleConfirmBlur",
+    value: function handleConfirmBlur(e) {
+      var value = e.target.value;
+      this.setState({ confirmDirty: this.state.confirmDirty || !!value });
+    }
+  }, {
+    key: "checkPassword",
+    value: function checkPassword(rule, value, callback) {
+      var form = this.props.form;
+      if (value && value !== form.getFieldValue("r_password")) {
+        callback("两次输入不一致");
+      } else if (!value) {
+        callback("请填写值");
+      } else {
+        callback();
+      }
+    }
+  }, {
+    key: "checkConfirm",
+    value: function checkConfirm(rule, value, callback) {
+      var form = this.props.form;
+      var re = /^\w{4,18}$/;
+      if (!value || !re.test(value)) {
+        callback("密码格式错误");
+      } else if (value && this.state.confirmDirty) {
+        form.validateFields(["r_confirmPassword"], { force: true });
+      }
+      callback();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this5 = this;
 
-			var getFieldDecorator = this.props.form.getFieldDecorator;
+      var getFieldDecorator = this.props.form.getFieldDecorator;
 
-			var userShow = this.state.hasLogined ? _react2.default.createElement(
-				'div',
-				{ style: { float: 'right' } },
-				_react2.default.createElement(
-					_reactRouterDom.Link,
-					{ to: '/usercenter' },
-					_react2.default.createElement(_icon2.default, { type: 'inbox' })
-				),
-				_react2.default.createElement(
-					_reactRouterDom.Link,
-					{ to: '/', onClick: this.logout.bind(this) },
-					_react2.default.createElement(_icon2.default, { type: 'logout', style: { color: "red" } })
-				)
-			) : _react2.default.createElement(_icon2.default, { type: 'setting', onClick: this.login.bind(this) });
+      var userShow = this.state.hasLogined ? _react2.default.createElement(
+        "div",
+        { style: { float: "right" } },
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { to: "/usercenter" },
+          _react2.default.createElement(_icon2.default, { type: "inbox" })
+        ),
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { to: "/", onClick: this.logout.bind(this) },
+          _react2.default.createElement(_icon2.default, { type: "logout", style: { color: "red" } })
+        )
+      ) : _react2.default.createElement(_icon2.default, { type: "setting", onClick: this.login.bind(this) });
 
-			return _react2.default.createElement(
-				'div',
-				{ id: 'mobileheader' },
-				_react2.default.createElement(
-					'header',
-					null,
-					's',
-					_react2.default.createElement('img', { src: '/src/images/news_logo.png', alt: 'logo' }),
-					_react2.default.createElement(
-						'span',
-						null,
-						'ReactNews'
-					),
-					userShow
-				),
-				_react2.default.createElement(
-					_modal2.default,
-					{ title: '\u7528\u6237\u4E2D\u5FC3',
-						wrapClassName: 'vertical-center-modal',
-						visible: this.state.modalVisible,
-						onCancel: function onCancel() {
-							return _this5.setModalVisible(false);
-						},
-						onOk: function onOk() {
-							return _this5.setModalVisible(false);
-						}, okText: '\u5173\u95ED' },
-					_react2.default.createElement(
-						_tabs2.default,
-						{ type: 'line', onChange: this.callback.bind(this) },
-						_react2.default.createElement(
-							TabPane,
-							{ tab: '\u767B\u5F55', key: '1' },
-							_react2.default.createElement(
-								_form2.default,
-								{ layout: 'horizontal', onSubmit: this.handleSubmitLogin.bind(this) },
-								_react2.default.createElement(
-									FormItem,
-									{ label: '\u8D26\u6237' },
-									getFieldDecorator('userName', {
-										rules: [{
-											required: true,
-											message: '请输入2-16位的合法用户名',
-											pattern: /^[a-zA-Z0-9_-]{2,16}$/
-										}]
-									})(_react2.default.createElement(_input2.default, {
-										prefix: _react2.default.createElement(_icon2.default, { type: 'user', style: { fontSize: 14 } }),
-										placeholder: '\u8BF7\u8F93\u5165\u60A8\u7684\u7528\u6237\u540D'
-									}))
-								),
-								_react2.default.createElement(
-									FormItem,
-									{ label: '\u5BC6\u7801' },
-									getFieldDecorator('password', {
-										rules: [{
-											required: true,
-											message: '请输入4-18位的合法密码',
-											pattern: /^\w{4,18}$/
-										}]
-									})(_react2.default.createElement(_input2.default, {
-										type: 'password',
-										prefix: _react2.default.createElement(_icon2.default, { type: 'lock', style: { fontSize: 14 } }),
-										placeholder: '\u8BF7\u8F93\u5165\u60A8\u7684\u5BC6\u7801'
-									}))
-								),
-								_react2.default.createElement(
-									_button2.default,
-									{ type: 'primary', htmlType: 'submit' },
-									'\u767B\u5F55'
-								)
-							)
-						),
-						_react2.default.createElement(
-							TabPane,
-							{ tab: '\u6CE8\u518C', key: '2' },
-							_react2.default.createElement(
-								_form2.default,
-								{ layout: 'horizontal', onSubmit: this.handleSubmitReguster.bind(this) },
-								_react2.default.createElement(
-									FormItem,
-									{ label: '\u8D26\u6237' },
-									getFieldDecorator('r_userName', {
-										rules: [{
-											required: true,
-											message: '用户名输入不合法',
-											pattern: /^[a-zA-Z0-9_-]{2,16}$/
-										}]
-									})(_react2.default.createElement(_input2.default, { placeholder: '\u8BF7\u8F93\u51652-16\u4F4D\u7528\u6237\u540D' }))
-								),
-								_react2.default.createElement(
-									FormItem,
-									{ label: '\u5BC6\u7801' },
-									getFieldDecorator('r_password', {
-										rules: [{
-											required: true,
-											message: '密码格式不合法',
-											validator: this.checkConfirm.bind(this)
-										}]
-									})(_react2.default.createElement(_input2.default, { type: 'password', placeholder: '\u8BF7\u8F93\u51654-18\u4F4D\u7684\u7531\u6570\u5B57\u6216\u82F1\u6587\u7EC4\u6210\u7684\u5BC6\u7801' }))
-								),
-								_react2.default.createElement(
-									FormItem,
-									{ label: '\u786E\u8BA4\u5BC6\u7801' },
-									getFieldDecorator('r_confirmPassword', {
-										rules: [{
-											required: true,
-											message: '两次密码输入不一致',
-											validator: this.checkPassword.bind(this)
-										}]
-									})(_react2.default.createElement(_input2.default, { type: 'password', placeholder: '\u8BF7\u518D\u6B21\u8F93\u5165\u60A8\u7684\u5BC6\u7801', onBlur: this.handleConfirmBlur.bind(this) }))
-								),
-								_react2.default.createElement(
-									_button2.default,
-									{ type: 'primary', htmlType: 'submit' },
-									'\u6CE8\u518C'
-								)
-							)
-						)
-					)
-				)
-			);
-		}
-	}]);
+      return _react2.default.createElement(
+        "div",
+        { id: "mobileheader" },
+        _react2.default.createElement(
+          "header",
+          null,
+          "s",
+          _react2.default.createElement("img", { src: "/src/images/news_logo.png", alt: "logo" }),
+          _react2.default.createElement(
+            "span",
+            null,
+            "ReactNews"
+          ),
+          userShow
+        ),
+        _react2.default.createElement(
+          _modal2.default,
+          {
+            title: "\u7528\u6237\u4E2D\u5FC3",
+            wrapClassName: "vertical-center-modal",
+            visible: this.state.modalVisible,
+            onCancel: function onCancel() {
+              return _this5.setModalVisible(false);
+            },
+            onOk: function onOk() {
+              return _this5.setModalVisible(false);
+            },
+            okText: "\u5173\u95ED"
+          },
+          _react2.default.createElement(
+            _tabs2.default,
+            { type: "line", onChange: this.callback.bind(this) },
+            _react2.default.createElement(
+              TabPane,
+              { tab: "\u767B\u5F55", key: "1" },
+              _react2.default.createElement(
+                _form2.default,
+                {
+                  layout: "horizontal",
+                  onSubmit: this.handleSubmitLogin.bind(this)
+                },
+                _react2.default.createElement(
+                  FormItem,
+                  { label: "\u8D26\u6237" },
+                  getFieldDecorator("userName", {
+                    rules: [{
+                      required: true,
+                      message: "请输入2-16位的合法用户名",
+                      pattern: /^[a-zA-Z0-9_-]{2,16}$/
+                    }]
+                  })(_react2.default.createElement(_input2.default, {
+                    prefix: _react2.default.createElement(_icon2.default, { type: "user", style: { fontSize: 14 } }),
+                    placeholder: "\u8BF7\u8F93\u5165\u60A8\u7684\u7528\u6237\u540D"
+                  }))
+                ),
+                _react2.default.createElement(
+                  FormItem,
+                  { label: "\u5BC6\u7801" },
+                  getFieldDecorator("password", {
+                    rules: [{
+                      required: true,
+                      message: "请输入4-18位的合法密码",
+                      pattern: /^\w{4,18}$/
+                    }]
+                  })(_react2.default.createElement(_input2.default, {
+                    type: "password",
+                    prefix: _react2.default.createElement(_icon2.default, { type: "lock", style: { fontSize: 14 } }),
+                    placeholder: "\u8BF7\u8F93\u5165\u60A8\u7684\u5BC6\u7801"
+                  }))
+                ),
+                _react2.default.createElement(
+                  _button2.default,
+                  { type: "primary", htmlType: "submit" },
+                  "\u767B\u5F55"
+                )
+              )
+            ),
+            _react2.default.createElement(
+              TabPane,
+              { tab: "\u6CE8\u518C", key: "2" },
+              _react2.default.createElement(
+                _form2.default,
+                {
+                  layout: "horizontal",
+                  onSubmit: this.handleSubmitReguster.bind(this)
+                },
+                _react2.default.createElement(
+                  FormItem,
+                  { label: "\u8D26\u6237" },
+                  getFieldDecorator("r_userName", {
+                    rules: [{
+                      required: true,
+                      message: "用户名输入不合法",
+                      pattern: /^[a-zA-Z0-9_-]{2,16}$/
+                    }]
+                  })(_react2.default.createElement(_input2.default, { placeholder: "\u8BF7\u8F93\u51652-16\u4F4D\u7528\u6237\u540D" }))
+                ),
+                _react2.default.createElement(
+                  FormItem,
+                  { label: "\u5BC6\u7801" },
+                  getFieldDecorator("r_password", {
+                    rules: [{
+                      required: true,
+                      message: "密码格式不合法",
+                      validator: this.checkConfirm.bind(this)
+                    }]
+                  })(_react2.default.createElement(_input2.default, { type: "password", placeholder: "\u8BF7\u8F93\u51654-18\u4F4D\u7684\u7531\u6570\u5B57\u6216\u82F1\u6587\u7EC4\u6210\u7684\u5BC6\u7801" }))
+                ),
+                _react2.default.createElement(
+                  FormItem,
+                  { label: "\u786E\u8BA4\u5BC6\u7801" },
+                  getFieldDecorator("r_confirmPassword", {
+                    rules: [{
+                      required: true,
+                      message: "两次密码输入不一致",
+                      validator: this.checkPassword.bind(this)
+                    }]
+                  })(_react2.default.createElement(_input2.default, {
+                    type: "password",
+                    placeholder: "\u8BF7\u518D\u6B21\u8F93\u5165\u60A8\u7684\u5BC6\u7801",
+                    onBlur: this.handleConfirmBlur.bind(this)
+                  }))
+                ),
+                _react2.default.createElement(
+                  _button2.default,
+                  { type: "primary", htmlType: "submit" },
+                  "\u6CE8\u518C"
+                )
+              )
+            )
+          )
+        )
+      );
+    }
+  }]);
 
-	return PCHeader;
+  return PCHeader;
 }(_react2.default.Component);
 
 exports.default = PCHeader = _form2.default.create({})(PCHeader);
@@ -60818,7 +61022,7 @@ exports.default = PCHeader = _form2.default.create({})(PCHeader);
 
 
 Object.defineProperty(exports, "__esModule", {
-   value: true
+  value: true
 });
 
 var _row = __webpack_require__(26);
@@ -60844,36 +61048,36 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var MobileFooter = function (_React$Component) {
-   _inherits(MobileFooter, _React$Component);
+  _inherits(MobileFooter, _React$Component);
 
-   function MobileFooter() {
-      _classCallCheck(this, MobileFooter);
+  function MobileFooter() {
+    _classCallCheck(this, MobileFooter);
 
-      return _possibleConstructorReturn(this, (MobileFooter.__proto__ || Object.getPrototypeOf(MobileFooter)).apply(this, arguments));
-   }
+    return _possibleConstructorReturn(this, (MobileFooter.__proto__ || Object.getPrototypeOf(MobileFooter)).apply(this, arguments));
+  }
 
-   _createClass(MobileFooter, [{
-      key: "render",
-      value: function render() {
-         return _react2.default.createElement(
-            "footer",
-            { style: { paddingBottom: "10px" } },
-            _react2.default.createElement(
-               _row2.default,
-               null,
-               _react2.default.createElement(_col2.default, { span: 2 }),
-               _react2.default.createElement(
-                  _col2.default,
-                  { span: 20, className: "footer" },
-                  "\xA9\xA02016 ReactNews. All Rights Reserved."
-               ),
-               _react2.default.createElement(_col2.default, { span: 2 })
-            )
-         );
-      }
-   }]);
+  _createClass(MobileFooter, [{
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "footer",
+        { style: { paddingBottom: "10px" } },
+        _react2.default.createElement(
+          _row2.default,
+          null,
+          _react2.default.createElement(_col2.default, { span: 2 }),
+          _react2.default.createElement(
+            _col2.default,
+            { span: 20, className: "footer" },
+            "\xA9\xA02016 ReactNews. All Rights Reserved."
+          ),
+          _react2.default.createElement(_col2.default, { span: 2 })
+        )
+      );
+    }
+  }]);
 
-   return MobileFooter;
+  return MobileFooter;
 }(_react2.default.Component);
 
 exports.default = MobileFooter;
@@ -60886,7 +61090,7 @@ exports.default = MobileFooter;
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _row = __webpack_require__(26);
@@ -60926,85 +61130,84 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 var PcNewsList = function (_React$Component) {
-    _inherits(PcNewsList, _React$Component);
+  _inherits(PcNewsList, _React$Component);
 
-    function PcNewsList() {
-        _classCallCheck(this, PcNewsList);
+  function PcNewsList() {
+    _classCallCheck(this, PcNewsList);
 
-        var _this = _possibleConstructorReturn(this, (PcNewsList.__proto__ || Object.getPrototypeOf(PcNewsList)).call(this));
+    var _this = _possibleConstructorReturn(this, (PcNewsList.__proto__ || Object.getPrototypeOf(PcNewsList)).call(this));
 
-        _this.state = {
-            carTitle: ''
-        };
-        return _this;
+    _this.state = {
+      carTitle: ""
+    };
+    return _this;
+  }
+
+  _createClass(PcNewsList, [{
+    key: "componentWillMount",
+    value: function componentWillMount() {
+      switch (this.props.match.params.type) {
+        case "top":
+          this.setState({ carTitle: "头条" });
+          break;
+        case "shehui":
+          this.setState({ carTitle: "社会" });
+          break;
+        case "guonei":
+          this.setState({ carTitle: "国内" });
+          break;
+        case "guoji":
+          this.setState({ carTitle: "国际" });
+          break;
+        case "yule":
+          this.setState({ carTitle: "娱乐" });
+          break;
+        case "tiyu":
+          this.setState({ carTitle: "体育" });
+          break;
+        case "keji":
+          this.setState({ carTitle: "科技" });
+          break;
+        case "shishang":
+          this.setState({ carTitle: "时尚" });
+          break;
+      }
     }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      document.title = this.state.carTitle + "- React News | React 驱动的新闻平台";
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return _react2.default.createElement(
+        "div",
+        null,
+        _react2.default.createElement(_pc_header2.default, { currentTitle: this.props.match.params.type }),
+        _react2.default.createElement(
+          _row2.default,
+          null,
+          _react2.default.createElement(_col2.default, { span: 2 }),
+          _react2.default.createElement(
+            _col2.default,
+            { span: 20 },
+            _react2.default.createElement(_pc_news_pageList2.default, {
+              type: this.props.match.params.type,
+              cartTitle: this.state.carTitle,
+              width: "100%",
+              imageWidth: "278px",
+              fontSize: "16px"
+            })
+          ),
+          _react2.default.createElement(_col2.default, { span: 2 })
+        ),
+        _react2.default.createElement(_pc_footer2.default, null)
+      );
+    }
+  }]);
 
-    _createClass(PcNewsList, [{
-        key: 'componentWillMount',
-        value: function componentWillMount() {
-            switch (this.props.match.params.type) {
-                case 'top':
-                    this.setState({ carTitle: '头条' });
-                    break;
-                case 'shehui':
-                    this.setState({ carTitle: '社会' });
-                    break;
-                case 'guonei':
-                    this.setState({ carTitle: '国内' });
-                    break;
-                case 'guoji':
-                    this.setState({ carTitle: '国际' });
-                    break;
-                case 'yule':
-                    this.setState({ carTitle: '娱乐' });
-                    break;
-                case 'tiyu':
-                    this.setState({ carTitle: '体育' });
-                    break;
-                case 'keji':
-                    this.setState({ carTitle: '科技' });
-                    break;
-                case 'shishang':
-                    this.setState({ carTitle: '时尚' });
-                    break;
-            }
-        }
-    }, {
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            document.title = this.state.carTitle + '- React News | React 驱动的新闻平台';
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-
-            return _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement(_pc_header2.default, { currentTitle: this.props.match.params.type }),
-                _react2.default.createElement(
-                    _row2.default,
-                    null,
-                    _react2.default.createElement(_col2.default, { span: 2 }),
-                    _react2.default.createElement(
-                        _col2.default,
-                        { span: 20 },
-                        _react2.default.createElement(_pc_news_pageList2.default, {
-                            type: this.props.match.params.type,
-                            cartTitle: this.state.carTitle,
-                            width: '100%',
-                            imageWidth: '278px',
-                            fontSize: '16px'
-                        })
-                    ),
-                    _react2.default.createElement(_col2.default, { span: 2 })
-                ),
-                _react2.default.createElement(_pc_footer2.default, null)
-            );
-        }
-    }]);
-
-    return PcNewsList;
+  return PcNewsList;
 }(_react2.default.Component);
 
 exports.default = PcNewsList;
@@ -61017,7 +61220,7 @@ exports.default = PcNewsList;
 
 
 Object.defineProperty(exports, "__esModule", {
-      value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -61045,138 +61248,138 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var PcNewsImageBlock = function (_React$Component) {
-      _inherits(PcNewsImageBlock, _React$Component);
+  _inherits(PcNewsImageBlock, _React$Component);
 
-      function PcNewsImageBlock() {
-            _classCallCheck(this, PcNewsImageBlock);
+  function PcNewsImageBlock() {
+    _classCallCheck(this, PcNewsImageBlock);
 
-            var _this = _possibleConstructorReturn(this, (PcNewsImageBlock.__proto__ || Object.getPrototypeOf(PcNewsImageBlock)).call(this));
+    var _this = _possibleConstructorReturn(this, (PcNewsImageBlock.__proto__ || Object.getPrototypeOf(PcNewsImageBlock)).call(this));
 
-            _this.state = {
-                  news: [],
-                  total: 0,
-                  pageSize: 20,
-                  current: 1
-            };
-            return _this;
-      }
+    _this.state = {
+      news: [],
+      total: 0,
+      pageSize: 20,
+      current: 1
+    };
+    return _this;
+  }
 
-      _createClass(PcNewsImageBlock, [{
-            key: 'componentWillMount',
-            value: function componentWillMount() {
-                  var _this2 = this;
+  _createClass(PcNewsImageBlock, [{
+    key: "componentWillMount",
+    value: function componentWillMount() {
+      var _this2 = this;
 
-                  var pageSize = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 20;
-                  var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+      var pageSize = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 20;
+      var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
 
-                  var myFetchOptions = {
-                        method: 'GET'
-                  };
-                  fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=getnews&type=" + this.props.type + "&count=" + pageSize, myFetchOptions).then(function (response) {
-                        return response.json();
-                  }).then(function (json) {
-                        var arr = [],
-                            pageSize = _this2.state.pageSize;
-                        arr.push(json);
-                        _this2.setState({ news: arr[0].splice(pageSize * page) });
-                  });
-            }
-      }, {
-            key: 'componentDidMount',
-            value: function componentDidMount() {
-                  var _this3 = this;
+      var myFetchOptions = {
+        method: "GET"
+      };
+      fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=getnews&type=" + this.props.type + "&count=" + pageSize, myFetchOptions).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        var arr = [],
+            pageSize = _this2.state.pageSize;
+        arr.push(json);
+        _this2.setState({ news: arr[0].splice(pageSize * page) });
+      });
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this3 = this;
 
-                  var myFetchOptions = {
-                        method: 'GET'
-                  };
-                  fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=getnews&type=" + this.props.type + "&count=0", myFetchOptions).then(function (response) {
-                        return response.json();
-                  }).then(function (json) {
-                        var newsLen = json.length;
-                        _this3.setState({ total: newsLen });
-                  });
-            }
-      }, {
-            key: 'pageChange',
-            value: function pageChange(page) {
-                  this.setState({ current: page });
-                  this.componentWillMount(page * this.state.pageSize, page - 1);
-            }
-      }, {
-            key: 'render',
-            value: function render() {
-                  var _this4 = this;
+      var myFetchOptions = {
+        method: "GET"
+      };
+      fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=getnews&type=" + this.props.type + "&count=0", myFetchOptions).then(function (response) {
+        return response.json();
+      }).then(function (json) {
+        var newsLen = json.length;
+        _this3.setState({ total: newsLen });
+      });
+    }
+  }, {
+    key: "pageChange",
+    value: function pageChange(page) {
+      this.setState({ current: page });
+      this.componentWillMount(page * this.state.pageSize, page - 1);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this4 = this;
 
-                  var news = this.state.news;
+      var news = this.state.news;
 
-                  var styleImage = {
-                        display: "block",
-                        width: this.props.imageWidth
-                  };
-                  var styeH3 = {
-                        width: this.props.imageWidth,
-                        fontSize: this.props.fontSize,
-                        whiteSpace: "nowrap",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis"
-                  };
-                  var newsList = news.length ? news.map(function (newsItem, index) {
-                        return _react2.default.createElement(
-                              'div',
-                              { key: index, className: 'imageblock' },
-                              _react2.default.createElement(
-                                    _reactRouterDom.Link,
-                                    { to: '/details/' + newsItem.uniquekey, target: '_blank' },
-                                    _react2.default.createElement(
-                                          'div',
-                                          { className: 'custom-image' },
-                                          _react2.default.createElement('img', { src: newsItem.thumbnail_pic_s, style: styleImage })
-                                    ),
-                                    _react2.default.createElement(
-                                          'div',
-                                          { className: 'custom-card' },
-                                          _react2.default.createElement(
-                                                'h3',
-                                                { style: styeH3 },
-                                                newsItem.title
-                                          ),
-                                          _react2.default.createElement(
-                                                'p',
-                                                null,
-                                                newsItem.author_name
-                                          )
-                                    )
-                              )
-                        );
-                  }) : '没有加载到任何新闻';
-                  return _react2.default.createElement(
-                        'div',
-                        { className: 'topNewsList' },
-                        _react2.default.createElement(
-                              _card2.default,
-                              {
-                                    title: this.props.cartTitle,
-                                    bordered: true,
-                                    style: { width: this.props.width }
-                              },
-                              newsList
-                        ),
-                        _react2.default.createElement(_pagination2.default, {
-                              style: { marginTop: "10px" },
-                              total: this.state.total,
-                              showTotal: function showTotal(total, range) {
-                                    return '\u4E00\u5171' + total + '\u9875,\u5F53\u524D\u7B2C' + _this4.state.current + '\u9875';
-                              },
-                              pageSize: this.state.pageSize,
-                              onChange: this.pageChange.bind(this),
-                              showQuickJumper: true,
-                              current: this.state.current
-                        })
-                  );
-            }
-      }]);
+      var styleImage = {
+        display: "block",
+        width: this.props.imageWidth
+      };
+      var styeH3 = {
+        width: this.props.imageWidth,
+        fontSize: this.props.fontSize,
+        whiteSpace: "nowrap",
+        overflow: "hidden",
+        textOverflow: "ellipsis"
+      };
+      var newsList = news.length ? news.map(function (newsItem, index) {
+        return _react2.default.createElement(
+          "div",
+          { key: index, className: "imageblock" },
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: "/details/" + newsItem.uniquekey, target: "_blank" },
+            _react2.default.createElement(
+              "div",
+              { className: "custom-image" },
+              _react2.default.createElement("img", { src: newsItem.thumbnail_pic_s, style: styleImage })
+            ),
+            _react2.default.createElement(
+              "div",
+              { className: "custom-card" },
+              _react2.default.createElement(
+                "h3",
+                { style: styeH3 },
+                newsItem.title
+              ),
+              _react2.default.createElement(
+                "p",
+                null,
+                newsItem.author_name
+              )
+            )
+          )
+        );
+      }) : "没有加载到任何新闻";
+      return _react2.default.createElement(
+        "div",
+        { className: "topNewsList" },
+        _react2.default.createElement(
+          _card2.default,
+          {
+            title: this.props.cartTitle,
+            bordered: true,
+            style: { width: this.props.width }
+          },
+          newsList
+        ),
+        _react2.default.createElement(_pagination2.default, {
+          style: { marginTop: "10px" },
+          total: this.state.total,
+          showTotal: function showTotal(total, range) {
+            return "\u4E00\u5171" + total + "\u9875,\u5F53\u524D\u7B2C" + _this4.state.current + "\u9875";
+          },
+          pageSize: this.state.pageSize,
+          onChange: this.pageChange.bind(this),
+          showQuickJumper: true,
+          current: this.state.current
+        })
+      );
+    }
+  }]);
 
-      return PcNewsImageBlock;
+  return PcNewsImageBlock;
 }(_react2.default.Component);
 
 exports.default = PcNewsImageBlock;
