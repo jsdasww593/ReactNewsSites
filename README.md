@@ -4,7 +4,7 @@
 
 ## 技术栈
 
-react、react-router4、AntDesign
+react、react-router4、AntDesign、react-touch-loader
 
 ## 项目心得
 
