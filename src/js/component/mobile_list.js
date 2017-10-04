@@ -1,13 +1,13 @@
-import React from "react";
-import { Row, Col } from "antd";
-import { Link } from "react-router-dom";
-import ThLoader from "react-touch-loader";
+import React from 'react';
+import { Row, Col } from 'antd';
+import { Link } from 'react-router-dom';
+import ThLoader from 'react-touch-loader';
 
 export default class MobileList extends React.Component {
   constructor() {
     super();
     this.state = {
-      news: "",
+      news: '',
       count: 5,
       hasMore: 0,
       initializing: 1,
@@ -16,12 +16,12 @@ export default class MobileList extends React.Component {
   }
   componentWillMount() {
     var myFetchOptions = {
-      method: "GET"
+      method: 'GET'
     };
     fetch(
-      "http://newsapi.gugujiankong.com/Handler.ashx?action=getnews&type=" +
+      'http://newsapi.gugujiankong.com/Handler.ashx?action=getnews&type=' +
         this.props.type +
-        "&count=" +
+        '&count=' +
         this.state.count,
       myFetchOptions
     )
@@ -35,12 +35,12 @@ export default class MobileList extends React.Component {
         count: count + 5
       });
       var myFetchOptions = {
-        method: "GET"
+        method: 'GET'
       };
       fetch(
-        "http://newsapi.gugujiankong.com/Handler.ashx?action=getnews&type=" +
+        'http://newsapi.gugujiankong.com/Handler.ashx?action=getnews&type=' +
           this.props.type +
-          "&count=" +
+          '&count=' +
           this.state.count,
         myFetchOptions
       )
@@ -71,33 +71,33 @@ export default class MobileList extends React.Component {
       ? news.map((newsItem, index) => (
           <section
             key={index}
-            class="m_article list-item special_section clearfix"
+            class='m_article list-item special_section clearfix'
           >
             <Link to={`/details/${newsItem.uniquekey}`}>
-              <div class="m_article_img">
+              <div class='m_article_img'>
                 <img src={newsItem.thumbnail_pic_s} />
               </div>
-              <div class="m_article_info">
-                <div class="m_article_title">
+              <div class='m_article_info'>
+                <div class='m_article_title'>
                   <span>{newsItem.title}</span>
                 </div>
-                <div class="m_article_desc clearfix">
-                  <div class="m_article_desc_l">
-                    <span class="m_article_channel">{newsItem.realtype}</span>
-                    <span class="m_article_time">{newsItem.date}</span>
+                <div class='m_article_desc clearfix'>
+                  <div class='m_article_desc_l'>
+                    <span class='m_article_channel'>{newsItem.realtype}</span>
+                    <span class='m_article_time'>{newsItem.date}</span>
                   </div>
                 </div>
               </div>
             </Link>
           </section>
         ))
-      : "没有加载到任何新闻";
+      : '没有加载到任何新闻';
     return (
       <div>
         <Row>
           <Col span={24}>
             <ThLoader
-              className="main"
+              className='main'
               onLoadMore={this.loadMore.bind(this)}
               hasMore={hasMore}
               initializing={initializing}

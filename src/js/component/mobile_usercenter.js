@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Row,
   Col,
@@ -12,38 +12,38 @@ import {
   Checkbox,
   Upload,
   Modal
-} from "antd";
+} from 'antd';
 const FormItem = Form.Item;
 const TabPane = Tabs.TabPane;
-import MobileHeader from "./Mobile_header";
-import MobileFooter from "./Mobile_footer";
+import MobileHeader from './Mobile_header';
+import MobileFooter from './Mobile_footer';
 export default class PcUserCenter extends React.Component {
   constructor() {
     super();
     this.state = {
-      usercomment: "",
-      usercollection: "",
-      previewImage: "",
+      usercomment: '',
+      usercollection: '',
+      previewImage: '',
       previewVisible: false
     };
   }
   componentDidMount() {
     var myOptons = {
-      method: "GET"
+      method: 'GET'
     };
     fetch(
-      "http://newsapi.gugujiankong.com/Handler.ashx?action=getuc&userid=" +
+      'http://newsapi.gugujiankong.com/Handler.ashx?action=getuc&userid=' +
         localStorage.userid,
       myOptons
     )
       .then(response => response.json())
       .then(json => {
         this.setState({ usercollection: json });
-        document.title = "个人中心 - React News | React 驱动的新闻平台";
+        document.title = '个人中心 - React News | React 驱动的新闻平台';
       });
 
     fetch(
-      "http://newsapi.gugujiankong.com/Handler.ashx?action=getusercomments&userid=" +
+      'http://newsapi.gugujiankong.com/Handler.ashx?action=getusercomments&userid=' +
         localStorage.userid,
       myOptons
     )
@@ -57,18 +57,18 @@ export default class PcUserCenter extends React.Component {
   }
   render() {
     const props = {
-      action: "http://newsapi.gugujiankong.com/handler.ashx",
+      action: 'http://newsapi.gugujiankong.com/handler.ashx',
       headers: {
-        "Access-Control-Allow-Origin": "*"
+        'Access-Control-Allow-Origin': '*'
       },
-      listType: "picture-card",
+      listType: 'picture-card',
       defaultFileList: [
         {
           uid: -1,
-          name: "xxx.png",
-          sate: "done",
-          url: "https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png",
-          thumbUrl: "https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png"
+          name: 'xxx.png',
+          sate: 'done',
+          url: 'https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png',
+          thumbUrl: 'https://os.alipayobjects.com/rmsportal/NDbkJhpzmLxtPhB.png'
         }
       ],
       onPreview: file => {
@@ -86,7 +86,7 @@ export default class PcUserCenter extends React.Component {
             <p> {uc.Title} </p>
           </Card>
         ))
-      : "还没有发现收藏的文章,快去收藏吧~";
+      : '还没有发现收藏的文章,快去收藏吧~';
 
     const usercommentList = usercomment.length
       ? usercomment.map((comment, index) => (
@@ -98,28 +98,28 @@ export default class PcUserCenter extends React.Component {
             <p> {comment.Comments} </p>
           </Card>
         ))
-      : "您还没有发表过任何评论,快去发表吧~";
+      : '您还没有发表过任何评论,快去发表吧~';
     return (
       <div>
         <MobileHeader />
         <Row>
           <Col span={24}>
             <Tabs>
-              <TabPane tab="我的收藏列表" key="1">
+              <TabPane tab='我的收藏列表' key='1'>
                 <Row>
                   <Col span={24}>{usercollectionList}</Col>
                 </Row>
               </TabPane>
-              <TabPane tab="我的评论列表" key="2">
+              <TabPane tab='我的评论列表' key='2'>
                 <Row>
                   <Col span={24}>{usercommentList}</Col>
                 </Row>
               </TabPane>
-              <TabPane tab="头像设置" key="3">
-                <div class="clearfix">
+              <TabPane tab='头像设置' key='3'>
+                <div class='clearfix'>
                   <Upload {...props}>
-                    <Icon type="plus" />
-                    <div class="ant-upload-text">上传照片</div>
+                    <Icon type='plus' />
+                    <div class='ant-upload-text'>上传照片</div>
                   </Upload>
                   <Modal
                     visible={this.state.previewVisible}

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Row,
   Col,
@@ -9,22 +9,22 @@ import {
   Button,
   Card,
   notification
-} from "antd";
+} from 'antd';
 
 const FormItem = Form.Item;
 class CommonComments extends React.Component {
   constructor() {
     super();
     this.state = {
-      comments: ""
+      comments: ''
     };
   }
   componentDidMount() {
     var myFetchOptions = {
-      method: "GET"
+      method: 'GET'
     };
     fetch(
-      "http://newsapi.gugujiankong.com/Handler.ashx?action=getcomments&uniquekey=" +
+      'http://newsapi.gugujiankong.com/Handler.ashx?action=getcomments&uniquekey=' +
         this.props.uniquekey,
       myFetchOptions
     )
@@ -36,40 +36,40 @@ class CommonComments extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     var myFetchOptions = {
-      method: "GET"
+      method: 'GET'
     };
     var formdata = this.props.form.getFieldsValue();
     fetch(
-      "http://newsapi.gugujiankong.com/Handler.ashx?action=comment&userid=" +
+      'http://newsapi.gugujiankong.com/Handler.ashx?action=comment&userid=' +
         localStorage.userid +
-        "&uniquekey=" +
+        '&uniquekey=' +
         this.props.uniquekey +
-        "&commnet=" +
+        '&commnet=' +
         formdata.remark,
       myFetchOptions
     )
       .then(response => response.json())
       .then(json => {
         this.componentDidMount();
-        message.success("评论成功");
+        message.success('评论成功');
       });
   }
   addUserCollection() {
     var myFetchOptions = {
-      method: "GET"
+      method: 'GET'
     };
     fetch(
-      "http://newsapi.gugujiankong.com/Handler.ashx?action=uc&userid=" +
+      'http://newsapi.gugujiankong.com/Handler.ashx?action=uc&userid=' +
         localStorage.userid +
-        "&uniquekey=" +
+        '&uniquekey=' +
         this.props.uniquekey,
       myFetchOptions
     )
       .then(response => response.json())
       .then(json => {
-        notification["success"]({
-          message: "ReactNews提醒",
-          description: "收藏此文章成功"
+        notification['success']({
+          message: 'ReactNews提醒',
+          description: '收藏此文章成功'
         });
       });
   }
@@ -81,30 +81,30 @@ class CommonComments extends React.Component {
           <Card
             key={index}
             title={comment.UserName}
-            extra={<a href="#"> 发布于 {comment.datetime} </a>}
+            extra={<a href='#'> 发布于 {comment.datetime} </a>}
           >
             <p>{comment.Comments}</p>
           </Card>
         ))
-      : "没有加载到任何评论";
+      : '没有加载到任何评论';
     return (
-      <div class="comment">
+      <div class='comment'>
         <Row>
           <Col span={24}>
             {commnetList}
             <Form onSubmit={this.handleSubmit.bind(this)}>
-              <FormItem label="您的评论">
-                {getFieldDecorator("remark", { initialValue: "" })(
-                  <Input type="textarea" placeholder="随便写" />
+              <FormItem label='您的评论'>
+                {getFieldDecorator('remark', { initialValue: '' })(
+                  <Input type='textarea' placeholder='随便写' />
                 )}
               </FormItem>
-              <Button type="primary" htmlType="submit">
+              <Button type='primary' htmlType='submit'>
                 提交评论
               </Button>
               &nbsp;&nbsp;
               <Button
-                type="primary"
-                htmlType="button"
+                type='primary'
+                htmlType='button'
                 onClick={this.addUserCollection.bind(this)}
               >
                 收藏该文章
