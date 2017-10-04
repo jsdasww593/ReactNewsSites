@@ -23,7 +23,7 @@ module.exports = {
   //代码压缩后项目的源码调试方法
   // devtool:'source-map', 
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js?$/,
         exclude: /(node_modules)/,
@@ -35,11 +35,11 @@ module.exports = {
       },
       { 
         test: /\.css$/, 
-        loader: 'style-loader!css-loader',
+        use: ['style-loader','css-loader']
       },
       { 
         test: /\.less$/,
-        loader: 'style-loader!css-loader!less-loader',
+        use: ['style-loader','css-loader','less-loader'],
       },
       {
         test: /\.js$/,
