@@ -13,6 +13,16 @@ react、react-router4、AntDesign、react-touch-loader
 
 新增:用户登录/注册输入验证、新闻分类列表
 
-初始化项目:npm install
+## Build Setup
 
-启动项目:npm start
+``` bash
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:8080
+npm start
+
+# build for production with minification
+npm run build
+
+```
