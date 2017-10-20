@@ -9,7 +9,7 @@ react、react-router4、AntDesign、react-touch-loader
 
 ## 项目心得
 
-新手入门react,项目用到的技术相对比较基础,主要用到了AntDesign里面提供的组件进行构建.
+作为react的入门项目,用到的技术相对比较基础,对于想入门react的同学.这个是一个很不错的参考项目。
 
 新增:用户登录/注册输入验证、新闻分类列表
 
